@@ -65,8 +65,6 @@ function Alarm(hour, min) {
   
 }
  
-
-
 /* ======================*/
 /* _render times helper  */
 /* ======================*/
@@ -95,7 +93,9 @@ function _modalHandler() {
   var dirty_dialog_1 = "";
   var input_time = '';
 
-
+  $("#btn-create-new").click( function (e) {
+    $("#modal-dialog").html(modal_content_1);
+  });
 
   /* modal-1 next */
   $("#btn-modal-1-next").click(function (e) {

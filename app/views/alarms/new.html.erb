@@ -11,119 +11,14 @@
     <%= f.hidden_field :repeat_friday%>
     <%= f.hidden_field :repeat_saturday%>
     <%= f.hidden_field :repeat_sunday%>
-
     <%= f.hidden_field :wakeup_hour, :value => 00 %>
     <%= f.hidden_field :wakeup_minute, :value => 00 %>
     <%= f.hidden_field :wakeup_ampm, :value => 'AM' %>
 
-    <!-- --------- Modal ONE ------------ -->
     <div id="modal" class="modal fade"  tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" >
-
-      <div id="modal-dialog-1"  class="modal-dialog modal-dialog-1">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" id="myModalLabel">Create alarm</h4>
-          </div>
-          <div class="modal-body">
-            <div class="row">
-              <!-- time input column -->
-              <div class="col-xs-12 col-time-input">
-                <form class="form-inline" role="form">
-                  <div style="display:inline;">
-                    <span> I need to</span> <select id="alarm-type-selection"> <option>wakeup</option> <option>sleep</option> </select></div>
-
-                  <div class='input-append bootstrap-timepicker' style='display: inline;'>
-                    <span> at
-                      <input id="timepicker"class='dateselect-time input-small timepicker' type='text'/>
-                      <span class='add-on'><i class='icon-time glyphicon glyphicon-time'></i></span></span>
-                  </div>
-                </form>
-              </div>
-            </div>
-            
-            <div class="row" style="margin-top:25px">
-              <div class="col-xs-12">
-                <form class="form-inline" role="form"><span>Alarm type: </span> 
-                <div class="radio"> <label> <input type="radio" name="optionsRadios" id="optionsRadios1" value="call" checked> call </label> </div>
-                <div class="radio"> <label> <input type="radio" name="optionsRadios" id="optionsRadios2" value="sms"> sms </label> </div>
-              </form>
-              </div>
-            </div>
-         
-            <div class="row"> 
-              <div id="col-repeat-input" class="col-xs-12">
-                <label class="checkbox-inline">REPEAT<input type="checkbox" id="repeatCheckbox"/></label>
-                <div id="checkbox-list-days">
-                  <label class="checkbox-inline"> <input type="checkbox" id="sunday" name="dayCheckBox"/>sun</label>
-                  <label class="checkbox-inline"> <input type="checkbox" id="monday" name="dayCheckBox"/>mon</label>
-                  <label class="checkbox-inline"> <input type="checkbox" id="tuesday" name="dayCheckBox"/>tues</label>
-                  <label class="checkbox-inline"> <input type="checkbox" id="wednesday" name="dayCheckBox"/>wed</label>
-                  <label class="checkbox-inline"> <input type="checkbox" id="thursday" name="dayCheckBox"/>thurs</label>
-                  <label class="checkbox-inline"> <input type="checkbox" id="friday" name="dayCheckBox"/>fri</label>
-                  <label class="checkbox-inline"> <input type="checkbox" id="saturday" name="dayCheckBox"/>sat</label>
-                </div>
-              </div><!--/.col-repeat-input -->   
-            </div>
-
-
-
-
-          </div> <!-- /.modal-body -->
-          <div class="modal-footer">
-
-            <button id="btn-modal-1-cancel"type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-            <button id="btn-modal-1-next"type="button" class="btn btn-primary">Next</button>
-          </div>
-        </div><!-- /.modal-step-1 -->
+      <div id="modal-dialog"  class="modal-dialog modal-dialog">
       </div> <! -- /.modal-dialog -->
     </div> <!-- /.modal -->
-
-    <!-- -------- Modal TWO------------ -->
-    <div class="modal fade" id="modal-2" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-      <div id="modal-dialog-2" class="modal-dialog modal-dialog-2">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-            <h4 class="modal-title" id="myModalLabel"></h4>
-          </div>
-          <div id="modal-body-2" class="modal-body">
-            <div class="row">
-              <div class=" col-xs-12">
-                <h4 style="color:#999">Reminder</h4>
-                <div>
-                  <label class="radio-inline">
-                    <input type="radio" id="inlineCheckbox1" value="option1"> SMS
-                  </label>
-                  <label class="radio-inline">
-                    <input type="radio" id="inlineCheckbox2" value="option2"> Call
-                  </label>
-                  <label class="radio-inline">
-                    <input type="radio" id="inlineCheckbox3" value="option3"> None
-                  </label>    
-                  <label> <input class="radio-inline form-control"type="number" name="quantity" min="1" max="60" value="10"></label>
-                  <label class=> <select class="form-control radio-inline">
-                      <option>minutes</option>
-                      <option>hours</option>
-                      <option>days</option>
-                  </select></label>
-                  <label class=> <select class="form-control radio-inline">
-                      <option>minutes</option>
-                      <option>hours</option>
-                      <option>days</option>
-                  </select></label>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div class="modal-footer">
-            <button id="btn-modal-2-back" type="button" class = "btn btn-default"><span class=" glyphicon glyphicon-chevron-left"></span></button>
-            <button id="btn-modal-2-cancel"type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
-            <span id="btn_save"><%= submit_tag 'Save' %></span>
-          </div>
-        </div>
-      </div>
-    </div>
   <% end %>
 </div>
 

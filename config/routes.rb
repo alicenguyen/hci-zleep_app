@@ -4,7 +4,7 @@ Zleep::Application.routes.draw do
 
 
   devise_for :users, :controllers => { :omniauth_callbacks => "users/omniauth_callbacks" }
-
+  get "welcome/mesage"
   get "welcome/index"
   get "alarms/sleep"
   get "alarms/help" 
@@ -12,6 +12,12 @@ Zleep::Application.routes.draw do
   get "alarms/sleep101"
   get "users/stats"
   get "/users/profile/:id" => "users#profile", :as => :public_profile
+  post 'welcome/calling' => 'welcome#calling', :as => :welcome_calling
+  get "welcome/demo"
+  get 'welcome/message' => 'welcome#message'
+
+
+
 
   # The priority is based upon order of creation: first created -> highest priority.
   # See how all your routes lay out with "rake routes".

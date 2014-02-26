@@ -1,0 +1,24 @@
+<div class ="row">
+  <div class="col-md-1"></div>
+  <div class="col-md-4">
+    <h3> Select User </h3>
+    <%= form_tag("/welcome/calling", method: "post") do %>
+      
+      <%= select_tag(:user_id, options_from_collection_for_select(@users, :id , :first_name), class: 'form-control' ) %>
+      <h3> Select Method </h3>
+        <%= select_tag(:contact_type,options_for_select([['Sms', 1], ['Phone', 2]]), class: 'form-control' ) %>
+
+
+      <br>
+      <h3> Enter message </h3>
+      <%= text_area_tag 'message', nil, rows: 6, class: 'form-control' %>
+
+      <br><br>
+      <%= submit_tag "Call", :class => "btn btn-default"%>
+    <% end %>  
+  </div>
+  <div class="col-md-4"> 
+
+  </div>
+  <div class="col-md-1"></div>
+</div>  

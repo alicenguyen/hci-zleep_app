@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Response>
+<Say voice="alice">
+	This is a friendly wakeup call from Zleep. You have an important meeting at 8:00 AM. Please press x1h6no
+</Say>
+<Gather action="/validate/" method="GET">
+    <Say>
+        Please enter your account number,
+        followed by the pound sign
+    </Say>
+</Gather>
+
+<Pause length="1"/>
+<Say voice="alice">
+	Let us know if we can help you in any way during your development.
+</Say></Response>
+
+
+
+http://localhost:3000/twilio/validate

@@ -48,8 +48,8 @@ section, footer, header, aside{
 
 
 #clock{
-	width:360px;
-	padding:15px;
+	width:350px;
+	padding:10px;
 	margin:0px auto 60px;
 	position:relative;
 }
@@ -57,7 +57,7 @@ section, footer, header, aside{
 #clock:after{
 	content:'';
 	position:absolute;
-	width:360px;
+	width:350px;
 	height:20px;
 	border-radius:100%;
 	left:50%;

@@ -1,6 +1,7 @@
 @font-face {
-  font-family: Bariol-Bold;
-  src: url('<%= asset_path("Bariol-Bold.otf")%>') unquote("format('opentype')");
-  font-weight:normal;
+  font:{
+      family: 'Bariol-Bold';
+  }
+  src: asset-url('Bariol-Bold.otf', font);
+  src: asset-url('Bariol-Bold.otf', font) format('opentype');
 }
-

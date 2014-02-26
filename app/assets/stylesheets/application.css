@@ -11,7 +11,8 @@
  *= require_self
  *= require_tree .
  *= require jplayer.blue.monday
- * @import "fonts";
-* $my_yolo_font: 'Bariol-Bold'; 
  */
+
+@import "fonts";
+$bariol_bold: 'Bariol-Bold'; 
 

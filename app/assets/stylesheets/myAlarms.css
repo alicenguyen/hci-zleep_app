@@ -231,3 +231,8 @@ float:right;
 height:20px;
 width:20px;
 }
+
+a.list-group-item:hover{
+text-decoration: none;
+background-color: inherit;
+}

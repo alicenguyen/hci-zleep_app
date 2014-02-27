@@ -5,6 +5,12 @@
     margin: 2px;
 }
 
+.less_pad
+{
+    padding-top: 10px;
+    padding-bottom: 10px
+}
+
 .alarm_type
 {
     background-color: #3498DB;

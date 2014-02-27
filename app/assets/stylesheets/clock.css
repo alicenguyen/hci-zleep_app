@@ -17,10 +17,6 @@
 --------------------------*/
 
 
-html{
-	background:url('/assets/bg.jpg') #dbe4e6;
-	overflow:hidden;
-}
 
 body{
 	font:15px/1.3 Arial, sans-serif;
@@ -391,7 +387,7 @@ section, footer, header, aside{
 
 .button-holder{
 	text-align:center;
-	padding-bottom:100px;
+	padding-bottom:50px;
 }
 
 a.button{

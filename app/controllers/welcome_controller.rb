@@ -42,7 +42,7 @@ class WelcomeController < ApplicationController
 			  :to => @user.phone_number,
 			  :url => "https://dl.dropboxusercontent.com/u/84415358/message.xml"
 			 	)
-			 	redirect_to welcome_calling_path(@user)
+			 	redirect_to welcome_calling_path({:user_id => @user.id})
 
 	   	end
 	  end

@@ -6,7 +6,59 @@
   <div class="col-md-4">
   	<h1> Welcome to <b>Zleep</b></h1>
 	<h4><i>Your personalized sleep-science assistant!</i></h4>
-  	<br><br><br>
+  	<br>
+  	
+  	<div class="row login_center">
+  <div class="col-md-4"></div>
+  <div class="col-md-4">
+  	<h1> Welcome to <b>Zleep</b></h1>
+	<h4><i>Your personalized sleep-science assistant!</i></h4>
+  	<br>
+  	<div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
+      <ol class="carousel-indicators">
+        <li data-target="#carousel-example-generic" data-slide-to="0" class=""></li>
+        <li data-target="#carousel-example-generic" data-slide-to="1" class="active"></li>
+        <li data-target="#carousel-example-generic" data-slide-to="2" class=""></li>
+      </ol>
+      <div class="carousel-inner">
+        <div class="item" >
+        	<p>Do you angrily pound "snooze" every morning?</p>
+        </div>
+        <div class="item">
+        	<p>Feeling sluggish all day?</p>
+        </div>
+        <div class="item">
+        	<p>Can't stay awake during that important meeting?</p>
+        </div>
+        <div class="item">
+        	<p>Are you a zombie without your mid-day nap?</p>
+        </div>
+        <div class="item">
+        	<p>Fatigue, lethargy, and irritability got you down?</p>
+        </div>
+        <div class="item">
+        	<p>Let Zleep! help!, Sign up below!/p>
+        </div>
+      </div>
+      <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+      </a>
+      <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right"></span>
+      </a>
+    </div>
+  <!-- Controls -->
+  <a class="left carousel-control" href="#carousel-example-generic" data-slide="prev">
+    <span class="glyphicon glyphicon-chevron-left"></span>
+  </a>
+  <a class="right carousel-control" href="#carousel-example-generic" data-slide="next">
+    <span class="glyphicon glyphicon-chevron-right"></span>
+  </a>
+</div>
+	$('.carousel').carousel({
+  		interval: 2000
+	})
+	<br><br>
   	<%= content_tag(:div, flash[:error], :id => "flash_error") if flash[:error] %>
 <%= content_tag(:div, flash[:notice], :id => "flash_notice") if flash[:notice] %>
 <%= content_tag(:div, flash[:alert], :id => "flash_alert") if flash[:alert] %>

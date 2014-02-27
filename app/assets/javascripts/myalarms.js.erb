@@ -112,7 +112,7 @@ function _modalHandler() {
     type = $("#alarm_alarm_type option:selected").text();
     hour = $(".bootstrap-timepicker-hour").val();
     min  = $(".bootstrap-timepicker-minute").val();
-    ampm = $("#alarm_wakeup_ampm option:selected").text();  
+    ampm = $(".bootstrap-timepicker-meridian").val();  
     repeatingDays =  $('input[name=dayCheckBox]:checked').map(function() { return $(this).val(); });
   
 
@@ -128,7 +128,8 @@ function _modalHandler() {
     $("#alarm_repeat_friday").val( $("#friday").prop('checked'));
     $("#alarm_repeat_saturday").val( $("#saturday").prop('checked'));
     $("#alarm_repeat_sunday").val( $("#sunday").prop('checked'));
-  //  $("#alarm_title").val($("#title-input-field").val());
+    // $("#alarm_title").val($("#title-input-field").val());
+    $("#alarm_wakeup_ampm").val(ampm);
 
     var alarm = new Alarm ( hour, min);
     var times = alarm.times;

@@ -14,6 +14,7 @@ module Zleep
     config.assets.paths << "#{Rails}/vendor/assets/fonts"
     config.serve_static_assets = true
     config.assets.paths << "#{Rails}/vendor/assets/sounds"
+    config.assets.paths << "#{Rails.root}/app/assets/fonts"
 
     # Set Time.zone default to the specified zone and make Active Record auto-convert to this zone.
     # Run "rake -D time" for a list of tasks for finding time zone names. Default is UTC.

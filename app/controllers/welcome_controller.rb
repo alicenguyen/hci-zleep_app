@@ -48,7 +48,7 @@ class WelcomeController < ApplicationController
 	  end
 
 	  def calling
-
+	  	@user = User.find(params[:user_id])
 	  end
 
 

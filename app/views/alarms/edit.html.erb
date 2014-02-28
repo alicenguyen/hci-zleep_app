@@ -1,28 +1,93 @@
-<div class="modal-content">
-  <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-    <h4 class="modal-title">Edit</h4>
 
+<script type="text/javascript">
+  $( document ).ready(function() {
+    $('#second_slide').hide();
+    $('#second_click').hide();
+
+  });
+
+  function nextSlide()
+  {
+    $('#first_slide').hide();
+    $('#second_slide').show();
+    $('#first_click').hide();
+    $('#second_click').show();
+
+
+  }
+
+</script>
+
+<%= form_for :alarm, url: alarm_path(@alarm), method: :patch do |f| %>
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <h4 class="modal-title">Edit</h4>
+
+    </div>
+    <div class="modal-body">
+      <div class="first_slide" id="first_slide">
+        <div class="row">
+          <div class="col-xs-12 col-time-input">
+            <form class="form-inline" role="form">
+              <div style="display:inline;">
+                <span> I need to</span> <select id="alarm-type-selection"> <option>wakeup</option> <option>sleep</option> </select></div>
+              <div class='input-append bootstrap-timepicker' style='display: inline;'>
+                <span> at</span>
+                <input id="timepicker"class='dateselect-time input-small timepicker' type='text'>
+                <span class='add-on'><i class='icon-time glyphicon glyphicon-time'></i></span></input>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="row"> <div class="col-xs-6 form-inline"> <span>title:</span> <input id="title-text-field" /></div> </div>
+
+        <div class="row" style="margin-top:25px">
+          <div class="col-xs-12">
+            <form class="form-inline" role="form"><span>Alarm type: </span> <%= f.select(:wakeup_reminder_type, options_for_select(['call','sms']))%> </form> </div>
+        </div>
+
+        <div class="row"> 
+          <div id="col-repeat-input" class="col-xs-12">
+            <label class="checkbox-inline">REPEAT<input type="checkbox" id="repeatCheckbox"/></label>
+            <div id="checkbox-list-days">
+              <label class="checkbox-inline"> <input type="checkbox" id="sunday" name="dayCheckBox"/>sun</label>
+              <label class="checkbox-inline"> <input type="checkbox" id="monday" name="dayCheckBox"/>mon</label>
+              <label class="checkbox-inline"> <input type="checkbox" id="tuesday" name="dayCheckBox"/>tues</label>
+              <label class="checkbox-inline"> <input type="checkbox" id="wednesday" name="dayCheckBox"/>wed</label>
+              <label class="checkbox-inline"> <input type="checkbox" id="thursday" name="dayCheckBox"/>thurs</label>
+              <label class="checkbox-inline"> <input type="checkbox" id="friday" name="dayCheckBox"/>fri</label>
+              <label class="checkbox-inline"> <input type="checkbox" id="saturday" name="dayCheckBox"/>sat</label>
+            </div>
+          </div><!--/.col-repeat-input -->   
+        </div>
+      </div>
+
+
+      <div class="second_slide" id="second_slide">
+        <div class="row">
+          <div class=" col-xs-12">
+            <h4 style="color:#999">Reminder</h4>
+
+            <%= f.select(:sleep_reminder_type, ['call', 'sms', 'none'])%>
+            <%= f.select( :sleep_reminder_time, options_for_select((0..60).step(5))) %>
+            <%= f.select(:sleep_reminder_time_unit, ['minutes', 'hours'])%>
+          </div>
+        </div>
+      </div>
+
+
+
+
+      
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      <%= f.submit 'Submit', :class => 'btn btn-default', :id =>"second_click" %>
+      <button type="button" id="first_click" class="btn btn-primary" onclick="nextSlide()">Next</button>
+    </div>
   </div>
-  <div class="modal-body">
-    
-    
-   
-      <%= form_for :alarm, url: alarm_path(@alarm), method: :patch do |f| %>
-
-
-        <%= f.label :wakeup_hour %>
-        <%= f.text_field :wakeup_hour%>
-
-
-   
-    
-  </div>
-  <div class="modal-footer">
-    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-    <%= f.submit %>
-    <button type="button" class="btn btn-primary">Save changes</button>
-  </div>
-</div>
 <% end %>
+
+
 

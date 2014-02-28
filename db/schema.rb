@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140226070043) do
+ActiveRecord::Schema.define(version: 20140227205801) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,8 @@ ActiveRecord::Schema.define(version: 20140226070043) do
     t.string   "wakeup_minute"
     t.string   "wakeup_ampm"
     t.string   "sleep_reminder_time_unit"
+    t.string   "sleep_reminder_hour"
+    t.string   "sleep_reminder_minute"
   end
 
   add_index "alarms", ["user_id"], name: "index_alarms_on_user_id", using: :btree

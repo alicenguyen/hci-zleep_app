@@ -54,7 +54,7 @@ function Alarm(hour, min) {
       ampm = 'pm';
     console.log("timeB: " + timeB[i].toString() + " (" +amountHour+ ", " +amountMin+ ")");
 
-    localFormat.push([_timeFormatter(timeB[i].toLocaleTimeString()), amountHour + 'h' + amountMin + 'm']);
+    localFormat.push([_timeFormatter(timeB[i].toLocaleTimeString()), amountHour + 'h' + amountMin + 'm', _toTimeArray(timeB[i].toLocaleTimeString())]);
   }
   this.times = localFormat;
 
@@ -63,6 +63,15 @@ function Alarm(hour, min) {
     var str1 = time.split(' ');
     var str2 = str1[0].split(":");
     return str2[0] + ":" + str2[1] + ' ' +str1[1];
+  }
+
+  function _toTimeArray (time) {
+    var str1 = time.split(' ');
+    var str2 = str1[0].split(":");
+    console.log([str2[0], str2[1], str1[1]]);
+
+    return [str2[0], str2[1], str1[1]];
+
   }
 
 }
@@ -84,14 +93,14 @@ function _renderTimes (times, type) {
   for (var i in times) { 
     console.log(times[i] ); 
     var label = times[i][0] +" "+ times[i][1];
-    html +=  _radio_tag( "time"+count , times[i][0], label); 
+    html +=  _radio_tag( "time"+count , times[i][2][0], times[i][2][1], times[i][2][2], label);
     count++;
   }
   return html;
 }
 
-function _radio_tag (id, val, label) {
-  return "<div class='radio'> <label> <input type='radio' name='radioReminder' id="+id+ " value="+val+"/>"+label+"</label> </div> ";
+function _radio_tag (id, hour, minute, ampm,  label) {
+  return "<div class='radio'> <label> <input type='radio' name='radioReminder' id="+id+" hour="+hour+" minute=" + minute + " ampm=" + ampm +" >"+label+"</label> </div> ";
 }
 
 /* ========================*/
@@ -128,7 +137,7 @@ function _modalHandler() {
     $("#alarm_repeat_friday").val( $("#friday").prop('checked'));
     $("#alarm_repeat_saturday").val( $("#saturday").prop('checked'));
     $("#alarm_repeat_sunday").val( $("#sunday").prop('checked'));
-    // $("#alarm_title").val($("#title-input-field").val());
+     $("#alarm_title").val($("#title-text-field").val());
     $("#alarm_wakeup_ampm").val(ampm);
 
     var alarm = new Alarm ( hour, min);
@@ -161,16 +170,13 @@ function _modalHandler() {
   });
 
 
-
-  $(".btn_save").click( function (e) {
+  $('body').on('click',"#btn_save",function (e) {
     e.preventDefault();
-    $("#alarm_wakeup_hour").val(hour);
-    $("#alarm_wakeup_minute").val(min);
-    $("#alarm_wakeup_ampm").val(ampm);
-    $("#alarm_sleep_reminder_time").val(); // TODO 
-    //_getSelectedTime();
-
-  });
+    $("#alarm_sleeping_hour").val(_hourStart());
+    $("#alarm_sleeping_minute").val(_minuteStart());
+    $("#alarm_sleeping_ampm").val(_ampmStart());
+    $("#alarm_form").trigger("submit.rails"); 
+   });
 
 }
 
@@ -178,5 +184,6 @@ function _hourEnd () { return  hour;}
 function _minuteEnd () {return  min;}
 
 function _hourStart () { return $('input[name=radioReminder]:checked').attr("hour"); }
-function _minuteStart () { return $('input[name=radioReminder]:checked').attr("min");}
+function _minuteStart () { return $('input[name=radioReminder]:checked').attr("minute");}
+function _ampmStart () { return $('input[name=radioReminder]:checked').attr("ampm");}
 

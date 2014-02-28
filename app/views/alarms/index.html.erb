@@ -1,135 +1,55 @@
-<div class="row">
-	<div class="col-md-1"></div>
-  <div class="col-md-4">
-    <h2>Your Alarms</h2>
-    <div class="row">
-      <div class="row alarm_list">
-      	<span class="alarm_time">6:30</span>&nbsp;
-      	<span class="alarm_description">Doctor Appointment</span>
-      	<span class="pull-right">
-      		<span class="alarm_control glyphicon glyphicon-edit"></span>&nbsp;&nbsp;
-      		<span class="alarm_control glyphicon glyphicon-remove"></span>
-
-      	</span>
-      	<br>
-      	<center><span class="alarm_day">MON</span>&nbsp;&nbsp;
-      	<span class="alarm_day">TUE</span>&nbsp;&nbsp;
-      	<span class="alarm_day">WED</span>&nbsp;&nbsp;
-      	<span class="alarm_day">THU</span>&nbsp;&nbsp;
-      	<span class="alarm_day">FRI</span>&nbsp;&nbsp;
-      	<span class="alarm_day">SAT</span>&nbsp;&nbsp;
-      	<span class="alarm_day">SUN</span></center>
-      </div> 
-
-      <div class="row alarm_list">
-      	<span class="alarm_time">6:30</span>&nbsp;
-      	<span class="alarm_description">Doctor Appointment</span>
-      	<span class="pull-right">
-      		<span class="alarm_control glyphicon glyphicon-edit"></span>&nbsp;&nbsp;
-      		<span class="alarm_control glyphicon glyphicon-remove"></span>
-
-      	</span>
-      	<br>
-      	<center><span class="alarm_day">MON</span>&nbsp;&nbsp;
-      	<span class="alarm_day">TUE</span>&nbsp;&nbsp;
-      	<span class="alarm_day">WED</span>&nbsp;&nbsp;
-      	<span class="alarm_day">THU</span>&nbsp;&nbsp;
-      	<span class="alarm_day">FRI</span>&nbsp;&nbsp;
-      	<span class="alarm_day">SAT</span>&nbsp;&nbsp;
-      	<span class="alarm_day">SUN</span></center>
-      </div>
-
-			<div class="row alarm_list">
-      	<span class="alarm_time">6:30</span>&nbsp;
-      	<span class="alarm_description">Doctor Appointment</span>
-      	<span class="pull-right">
-      		<span class="alarm_control glyphicon glyphicon-edit"></span>&nbsp;&nbsp;
-      		<span class="alarm_control glyphicon glyphicon-remove"></span>
-
-      	</span>
-      	<br>
-      	<center><span class="alarm_day">MON</span>&nbsp;&nbsp;
-      	<span class="alarm_day">TUE</span>&nbsp;&nbsp;
-      	<span class="alarm_day">WED</span>&nbsp;&nbsp;
-      	<span class="alarm_day">THU</span>&nbsp;&nbsp;
-      	<span class="alarm_day">FRI</span>&nbsp;&nbsp;
-      	<span class="alarm_day">SAT</span>&nbsp;&nbsp;
-      	<span class="alarm_day">SUN</span></center>
-      </div> 
-
-    </div></div>
-  <div class="col-md-1"></div>
-  <div class="col-md-5	">
-  	<h2>Create Alarm</h2>
-  	<div class="col-md-12">
-			<%= form_for :alarm do |f| %>
-				<div class="row">
-					<div class="col-md-8">
-						Alarm Name:
-					</div>
-					<div class="col-md-4">
-						Alarm Type:
-					</div>
-				</div>
-				<div class="row">
-					<div class="col-md-8">
-						<%= f.text_field :title, :class=>"form-control" %>
-					</div>
-					<div class="col-md-4">
-						<%= f.select(:type, options_for_select([ "Personal", "School", "Work" ], "Personal"), {},  { :class => 'form-control' } ) %>
-					</div>
-				</div>
-			  <br>
-			  <p>
-					<div class="row">
-					  <div class="col-md-3">
-					  	Hour:
-					  </div> 
-					  <div class="col-md-3">
-					  	Minute:
-					  </div>
-					  <div class="col-md-3">
-					  	D/N
-					  </div>
-					  <div class="col-md-3">
-					  	Day
-					  </div>
-					</div>
-
-					<div class="row">
-					  <div class="col-md-3">
-							<%= f.select(:hours, options_for_select(('01'..'12').step(1).to_a.map{|s| ["#{s}", s]}), {},  { :class => 'form-control' } ) %>  
-					  </div> 
-					  <div class="col-md-3">
-							<%= f.select(:minutes, options_for_select(('01'..'60').step(1).to_a.map{|s| ["#{s}", s]}), {},  { :class => 'form-control' } ) %>
-					  </div>
-					  <div class="col-md-3">
-							<%= f.select(:ampm, options_for_select([ "AM", "PM" ], "AM"), {},  { :class => 'form-control' } ) %>
-					  </div>
-					  <div class="col-md-3">
-							<%= f.select(:day, options_for_select([ "Mon", "Tue", "Wed", "Thu", "Fri", "Sat", "Sun" ], "Mon"), {},  { :class => 'form-control' } ) %>
-					  </div>
-					</div>
-					<br><br>
-					Minutes to be reminded before bedtime.
-					<div class="row">
-					  <div class="col-md-3">
-							<%= f.select(:reminder_time, options_for_select(('01'..'12').step(1).to_a.map{|s| ["#{s}", s]}), {},  { :class => 'form-control' } ) %>  
-					  </div> 
-
-					 	<div class="col-md-3 pull-right">
-					 		<%= f.submit 'Set Alarm', :class => "btn btn-primary" %>
-					 	</div>
-					</div>
-
-			  </p>
-			 
-			  <p>
-			  </p>
-			<% end %>
-
-  	</div></div>
-	<div class="col-md-1"></div>
-
-
+<meta name="viewport" content="width=device-width">
+<div class="row" >
+  <div class="col-xs-12 div-create-new-btn"/ >
+    <%= link_to 'new', alarms_path,{:remote=>true, "data-toggle" => "modal", "data-target" => "#modal", :class => "btn btn-primary btn-lg", :id => "btn-create-new"} %>
 </div>
+<%= render 'new' %>
+<div class="row" style="margin:15px;" >
+  <div class="col-xs-12" style="margin:0 auto;">
+    <div class="row alarm_list">
+
+
+      <% if @alarms.present? %>
+        <% @alarms.each do |alarm| %>
+          <!-- alarm item -->
+
+          <div class="list-group-item alarm-item" >
+            
+            <div class="row">
+              <div class="col-xs-10">
+                <h4 class="alarm_time" style="text-transform: lowercase;"><%= alarm.wakeup_hour%>:<%= alarm.wakeup_minute %> <%= alarm.wakeup_ampm  %></h4>
+                <span class="list-group-item-text alarm-item-title"><%= alarm.title %></span><br>
+                <small>
+                  <span class="alarm_day <%= (alarm.repeat_sunday == 'true')? "day_active"  :  "day_non_active"%>">SUN</span>
+                  <span class="alarm_day <%= (alarm.repeat_monday == 'true')? "day_active"  :  "day_non_active"%>">MON</span>&nbsp;
+                  <span class="alarm_day <%= (alarm.repeat_tuesday == 'true')? "day_active"  :  "day_non_active"%>">TUES</span>&nbsp;
+                  <span class="alarm_day <%= (alarm.repeat_wednesday == 'true')? "day_active"  :  "day_non_active"%>">WED</span>&nbsp;
+                  <span class="alarm_day <%= (alarm.repeat_thursday == 'true')? "day_active"  :  "day_non_active"%>">THURS</span>&nbsp;
+                  <span class="alarm_day <%= (alarm.repeat_friday == 'true')? "day_active"  :  "day_non_active"%>">FRI</span>&nbsp;
+                  <span class="alarm_day <%= (alarm.repeat_saturday == 'true')? "day_active"  :  "day_non_active"%>">SAT</span>
+                </small>
+                <div class="reminder">  
+                  <% if alarm.sleep_reminder_time != '0' %>
+                    <%= alarm.sleep_reminder_time %> <%=alarm.sleep_reminder_time_unit %>
+                    <%  if alarm.sleep_reminder_type == 'call' %>
+                      <%= image_tag "ic_action_call.png" %>
+                    <% else %>
+                      <%= image_tag "ic_action_chat.png" %>
+                    <% end %>
+                  <% end %>
+                </div>  
+              </div>
+              <div class="col-xs-2 btn-discard"> <%= button_to 'x', alarm, :method => :delete %></div> 
+              <%= link_to "Edit",  edit_alarm_path(alarm), {:remote=>true, "data-toggle" => "modal", "data-target" => "#modal_edit", :class => "btn-edit"} %>
+              <%= render 'edit', :collection => alarm, :as => :alarm%>
+            </div>
+          </div> 
+        <%end%>
+      <% else %>
+        <h4>You have no alarm yet. Create alarm on the right.</h4>
+      <% end %>   		
+    </div>  
+  </div>
+</div>
+</div>
+

@@ -55,6 +55,8 @@ skip_before_filter  :verify_authenticity_token
   end
 
 
+
+
   private
   def post_params
     params.require(:alarm).permit(:title, :wakeup_reminder_time, :sleeping_hour, :sleeping_minute, :is_dismiss, :sleep_reminder_time, :sleep_reminder_type,

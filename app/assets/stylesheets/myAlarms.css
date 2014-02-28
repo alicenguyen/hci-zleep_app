@@ -236,3 +236,9 @@ a.list-group-item:hover{
 text-decoration: none;
 background-color: inherit;
 }
+
+
+body > div.container.main {
+margin: auto 0;
+display: inline;
+}

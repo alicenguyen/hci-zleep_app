@@ -9,6 +9,8 @@ skip_before_filter  :verify_authenticity_token
   def new
     @alarms = current_user.alarms.all
     @alarm = current_user.alarms.new
+              render :layout => 'blank'
+
   end
  
   def create
@@ -46,7 +48,7 @@ skip_before_filter  :verify_authenticity_token
     @post = Alarm.find(params[:id])
     @post.destroy
    
-    redirect_to(new_alarm_path)
+    redirect_to(alarms_path)
   end
 
   def show
@@ -63,7 +65,7 @@ skip_before_filter  :verify_authenticity_token
   def post_params
     params.require(:alarm).permit(:title, :wakeup_reminder_time, :sleeping_hour, :sleeping_minute, :is_dismiss, :sleep_reminder_time, :sleep_reminder_type,
             :sleeping_ampm, :repeat_monday,  :repeat_tuesday,  :repeat_wednesday,  :repeat_thursday,  :repeat_friday,  :repeat_saturday,
-             :repeat_sunday, :wakeup_hour, :wakeup_minute, :wakeup_ampm, :sleep_reminder_time_unit)
+             :repeat_sunday, :wakeup_hour, :wakeup_minute, :wakeup_ampm, :sleep_reminder_time_unit, :wakeup_reminder_type)
   end
 
 

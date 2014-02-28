@@ -5,6 +5,21 @@
     margin: 2px;
 }
 
+.reminder_text
+{
+    font-size: 13px;
+}
+.alarm_type_text
+{
+    font-size: 16px;
+
+}
+
+.small_font
+{
+    font-size: 8px;
+}
+
 .less_pad
 {
     padding-top: 10px;

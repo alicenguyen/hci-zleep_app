@@ -28,14 +28,16 @@
                     <% if user_signed_in? %>
 
                         <ul class="nav navbar-nav">
-                            <li class="<%= 'active' if current_page?(alarms_path) %>"><a href="/welcome/index"><span class=" glyphicon
+                            <li class="<%= 'active' if current_page?(welcome_index_path) %>"><a href="/welcome/index"><span class=" glyphicon
                                         glyphicon-home"></span>&nbsp;Home</a></li>
-                            <li class="<%= 'active' if current_page?(alarms_path) %>"><a href="/alarms/index"><span class=" glyphicon
+                            <li class="<%= 'active' if current_page?(alarms_path) %>"><a href="/alarms/"><span class=" glyphicon
                                         glyphicon-time"></span>&nbsp;My Alarms</a></li>
                             <li class="<%= 'active' if current_page?(musics_index_path) %>"><a href="/musics/index"><span class="glyphicon
                                         glyphicon-music"></span>&nbsp;Music</a></li>
+                            <li class="<%= 'active' if current_page?(users_stats_path) %>"><a href="/users/stats"><span class="glyphicon
+                                        glyphicon-heart"></span>&nbsp; Stats</a></li>
                             <li class="<%= 'active' if current_page?(alarms_sleep101_path) %>"><a href="/alarms/sleep101"><span class="glyphicon
-                                        glyphicon-book"></span>&nbsp;sleep101</a></li>
+                                        glyphicon-book"></span>&nbsp;Sleep101</a></li>                                        
                         </ul>
 
                     <% end %>
@@ -51,7 +53,6 @@
                                 <% end %>
                                 <span class="caret"></span></a>
                                 <ul class="dropdown-menu" aria-labelledby="download">
-                                    <li><a href="/users/stats">STATS</a></li>
                                     <li><a href="/users/edit">ACCOUNT SETTINGS</a></li>
                                     <li><a href="/alarms/help">HELP</a></li>
 

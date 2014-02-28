@@ -1,1 +1,274 @@
-<%= render :action => 'index', :template => 'alarms/index' %>
+<script type="text/javascript">
+  (function() {
+  $(document).ready(function(){
+    initializePage();
+  });
+}).call(this);
+
+
+function initializePage () {
+  $('#second_slide').hide();
+  $('#second_click').hide();
+};
+
+function nextSlide()
+{
+  $('#first_slide').hide();
+  
+  type = $('#alarm-options').val();
+
+  hour = $(".bootstrap-timepicker-hour").val();
+  min  = $(".bootstrap-timepicker-minute").val();
+  var alarm = new Alarm ( hour, min);
+  var times = alarm.times;
+  var html = _renderTimes(times, type);
+  $("#timelist-div").html(html);
+
+  $('#timelist-div').show();
+  $('#second_slide').show();
+  $('#first_click').hide();
+  $('#second_click').show();
+
+
+};
+
+
+
+function saveData()
+{
+    input_time = $("#timepicker").val();
+    type = $("#alarm_alarm_type option:selected").text();
+    hour = $(".bootstrap-timepicker-hour").val();
+    min  = $(".bootstrap-timepicker-minute").val();
+    ampm = $(".bootstrap-timepicker-meridian").val();  
+  
+
+    // Reverse time if sleep
+    if ($('#alarm-options').val() == "sleep")
+    {
+      $("#alarm_wakeup_hour").val(_hourStart());
+      $("#alarm_wakeup_minute").val(_minuteStart());
+      $("#alarm_wakeup_ampm").val(_ampmStart());
+      $("#alarm_sleeping_hour").val(hour);
+      $("#alarm_sleeping_minute").val(min);
+      $("#alarm_sleeping_ampm").val(ampm);
+    }
+    else
+    {
+      $("#alarm_wakeup_hour").val(hour);
+      $("#alarm_wakeup_minute").val(min);
+      $("#alarm_wakeup_ampm").val(ampm);
+      $("#alarm_sleeping_hour").val(_hourStart());
+      $("#alarm_sleeping_minute").val(_minuteStart());
+      $("#alarm_sleeping_ampm").val(_ampmStart());
+    }
+
+
+    $("#alarm_repeat_monday").val( $("#monday").prop('checked'));
+    $("#alarm_repeat_tuesday").val( $("#tuesday").prop('checked'));
+    $("#alarm_repeat_wednesday").val( $("#wednesday").prop('checked'));
+    $("#alarm_repeat_thursday").val( $("#thursday").prop('checked'));
+    $("#alarm_repeat_friday").val( $("#friday").prop('checked'));
+    $("#alarm_repeat_saturday").val( $("#saturday").prop('checked'));
+    $("#alarm_repeat_sunday").val( $("#sunday").prop('checked'));
+    $("#alarm_form").trigger("submit.rails"); 
+
+};
+
+
+/* ======================*/
+/* Alarm Module          */
+/* ======================*/
+function Alarm(hour, min) {
+  var timeA = new Date();
+  var timeB = [new Date(), new Date(), new Date()];
+  var amounts = [{ hours: 7, minutes: 55 }, { hours: 9, minutes: 25 }, { hours: 10, minutes: 55 }];
+  timeA.setHours(hour);
+  timeA.setMinutes(min);
+  var localFormat = [];
+
+  console.log("timeA: " + timeA.toString());
+  for ( var i in timeB) {
+    var alarmHour = timeA.getHours();
+    var alarmMin = timeA.getMinutes();
+    var amountHour = amounts[i]["hours"];
+    var amountMin = amounts[i]["minutes"];
+    var ampm = 'am';
+    timeB[i].setHours(hour - amountHour);
+    timeB[i].setMinutes(min - amountMin - 14);
+    if (timeB[i].getHours() > 12) 
+      ampm = 'pm';
+    console.log("timeB: " + timeB[i].toString() + " (" +amountHour+ ", " +amountMin+ ")");
+
+    localFormat.push([_timeFormatter(timeB[i].toLocaleTimeString()), amountHour + 'h' + amountMin + 'm', _toTimeArray(timeB[i].toLocaleTimeString())]);
+  }
+  this.times = localFormat;
+
+  // form time to [<hour>, <min>, <AM/PM>]]
+  function _timeFormatter (time) {
+    var str1 = time.split(' ');
+    var str2 = str1[0].split(":");
+    return str2[0] + ":" + str2[1] + ' ' +str1[1];
+  }
+
+  function _toTimeArray (time) {
+    var str1 = time.split(' ');
+    var str2 = str1[0].split(":");
+    console.log([str2[0], str2[1], str1[1]]);
+
+    return [str2[0], str2[1], str1[1]];
+
+  }
+
+}
+
+
+
+/* ======================*/
+/* _render times helper  */
+/* ======================*/
+function _renderTimes (times, type) {
+
+  var html ='';
+  if (type == 'wakeup')
+    html = "<h4 style='color:#999;'>You should fall asleep at one of the following times:</h4>";
+  else
+    html = "<h4 style='color:#999;'>You should wake up at one of the following times:</h4>";
+
+      var count = 1;
+  for (var i in times) { 
+    console.log(times[i] ); 
+    var label = times[i][0] +" "+ times[i][1];
+    html +=  _radio_tag( "time"+count , times[i][2][0], times[i][2][1], times[i][2][2], label);
+    count++;
+  }
+  return html;
+}
+
+function _radio_tag (id, hour, minute, ampm,  label) {
+  return "<div class='radio'> <label> <input type='radio' name='radioReminder' id="+id+" hour="+hour+" minute=" + minute + " ampm=" + ampm +" >"+label+"</label> </div> ";
+}
+
+
+
+
+function _hourEnd () { return  hour;}
+function _minuteEnd () {return  min;}
+
+function _hourStart () { return $('input[name=radioReminder]:checked').attr("hour"); }
+function _minuteStart () { return $('input[name=radioReminder]:checked').attr("minute");}
+function _ampmStart () { return $('input[name=radioReminder]:checked').attr("ampm");}
+
+
+
+</script>
+
+
+
+
+<%= form_for :alarm, :html => {:id => "alarm_form"}, url: alarms_path do |f| %>
+     <%= f.hidden_field :repeat_monday%>
+    <%= f.hidden_field :repeat_tuesday%>
+    <%= f.hidden_field :repeat_wednesday%>
+    <%= f.hidden_field :repeat_thursday%>
+    <%= f.hidden_field :repeat_friday%>
+    <%= f.hidden_field :repeat_saturday%>
+    <%= f.hidden_field :repeat_sunday%>
+
+    <%= f.hidden_field :wakeup_hour, :value => 00 %>
+    <%= f.hidden_field :wakeup_minute, :value => 00 %>
+    <%= f.hidden_field :wakeup_ampm, :value => 'AM' %>
+    <%= f.hidden_field :sleep_reminder_time %>
+    <%= f.hidden_field :sleeping_hour %>
+    <%= f.hidden_field :sleeping_minute %>
+    <%= f.hidden_field :sleeping_ampm %>
+
+
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+      <h4 class="modal-title">Add</h4>
+
+    </div>
+    <div class="modal-body">
+
+      <div class="first_slide" id="first_slide">
+        <div class="row">
+          <div class="col-xs-12 col-time-input">
+            <form class="form-inline" role="form">
+              <div style="display:inline;">
+                <span> I need to</span> <select id="alarm-options"> <option>wakeup</option> <option>sleep</option> </select></div>
+              <div class='input-append bootstrap-timepicker' style='display: inline;'>
+                <span> at</span>
+                <input id="timepicker"class='dateselect-time input-small timepicker' type='text'>
+                <span class='add-on'><i class='icon-time glyphicon glyphicon-time'></i></span></input>
+              </div>
+            </form>
+          </div>
+        </div>
+        <div class="row"> <div class="col-xs-6 form-inline"> <span>title:</span>     <%= f.text_field :title %></div> </div>
+
+        <div class="row" style="margin-top:25px">
+          <div class="col-xs-12 inline">
+            <span>Alarm type: </span> <%= f.select(:wakeup_reminder_type, ['call','sms'])%> </div>
+        </div>
+
+        <div class="row"> 
+          <div id="col-repeat-input" class="col-xs-12">
+            <div id="checkbox-list-days">
+              <label class="checkbox-inline"> <%= f.check_box :repeat_sunday %> sun</label>
+              <label class="checkbox-inline"> <%= f.check_box :repeat_monday %> Mon</label>
+              <label class="checkbox-inline"> <%= f.check_box :repeat_tuesday %> Tue</label>
+              <label class="checkbox-inline"> <%= f.check_box :repeat_wednesday %> Wed</label>
+              <label class="checkbox-inline"> <%= f.check_box :repeat_thursday %> Thur</label>
+              <label class="checkbox-inline"> <%= f.check_box :repeat_friday %> Fri</label>
+              <label class="checkbox-inline"> <%= f.check_box :repeat_saturday %> Sat</label>
+            </div>
+          </div><!--/.col-repeat-input -->   
+        </div>
+      </div>
+
+
+      <div class="second_slide" id="second_slide">
+        <div id="timelist-div"></div>
+        <div class="row">
+          <div class=" col-xs-12">
+            <h4 style="color:#999">Reminder</h4>
+
+            <%= f.select(:sleep_reminder_type, ['call', 'sms', 'none'])%>
+            <%= f.select( :sleep_reminder_time, options_for_select((0..60).step(5))) %>
+            <%= f.select(:sleep_reminder_time_unit, ['minutes', 'hours'])%>
+          </div>
+        </div>
+      </div>
+
+
+
+
+      
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      <button type="button" class="btn btn-default" id="second_click" onclick="saveData()">Save</button>
+      <button type="button" id="first_click" class="btn btn-primary" onclick="nextSlide()">Next</button>
+    </div>
+  </div>
+<% end %>
+
+
+
+
+
+
+<script> 
+  $('.timepicker').timepicker().on('show.timepicker', function(e) {
+    e.preventDefault();
+    console.log('The time is ' + e.time.value);
+    var hour = $(".bootstrap-timepicker-hour").val();
+    console.log('The hour is ' + e.time.showInputs);
+    console.log('The minute is ' + e.time.minute);
+    console.log('The meridian is ' + e.time.meridian);
+  });
+</script>
+
+

@@ -1,58 +1,72 @@
 <meta name="viewport" content="width=device-width">
 <div class="row" >
-  <div class="col-xs-12 div-create-new-btn"/ >
-    <%= link_to 'new', alarms_path,{:remote=>true, "data-toggle" => "modal", "data-target" => "#modal", :class => "btn btn-primary btn-lg", :id => "btn-create-new"} %>
+  <div class="col-xs-4"> </div>
+
+  <div class="col-xs-4 div-create-new-btn" >
+    <a data-toggle="modal" href="/alarms/new" data-target="#addAlarm" class="div-create-new-btn btn btn-warning btn-primary btn-lg"><span class="glyphicon glyphicon-plus"></span></a>
+  </div>
+  <div class="col-xs-4"> </div>
+
 </div>
-<%= render 'new' %>
  
 <div class="row" style="margin:15px;" >
   <div class="col-xs-12" style="margin:0 auto;">
     <div class="row alarm_list">
 
+      <div class="row">
+        <div class="col-md-4"></div>
+        <div class="col-md-4">
 
-      <% if @alarms.present? %>
-        <% @alarms.each do |alarm| %>
-        
-          <!-- alarm item -->
-
-          <div class="list-group-item alarm-item" >
+          <% if @alarms.present? %>
+            <% @alarms.each do |alarm| %>
             
-            <div class="row">
-              <div class="col-xs-10">
-                <h4 class="alarm_time" style="text-transform: lowercase;"><%= alarm.wakeup_hour%>:<%= alarm.wakeup_minute %> <%= alarm.wakeup_ampm  %></h4>
-                <span class="list-group-item-text alarm-item-title"><%= alarm.title %></span><br>
-                <small>
-                  <span class="alarm_day <%= (alarm.repeat_sunday == 'true')? "day_active"  :  "day_non_active"%>">SUN</span>
-                  <span class="alarm_day <%= (alarm.repeat_monday == 'true')? "day_active"  :  "day_non_active"%>">MON</span>&nbsp;
-                  <span class="alarm_day <%= (alarm.repeat_tuesday == 'true')? "day_active"  :  "day_non_active"%>">TUES</span>&nbsp;
-                  <span class="alarm_day <%= (alarm.repeat_wednesday == 'true')? "day_active"  :  "day_non_active"%>">WED</span>&nbsp;
-                  <span class="alarm_day <%= (alarm.repeat_thursday == 'true')? "day_active"  :  "day_non_active"%>">THURS</span>&nbsp;
-                  <span class="alarm_day <%= (alarm.repeat_friday == 'true')? "day_active"  :  "day_non_active"%>">FRI</span>&nbsp;
-                  <span class="alarm_day <%= (alarm.repeat_saturday == 'true')? "day_active"  :  "day_non_active"%>">SAT</span>
-                </small>
-                <div class="reminder">  
-                  <% if alarm.sleep_reminder_time != '0' %>
-                    <%= alarm.sleep_reminder_time %> <%=alarm.sleep_reminder_time_unit %>
-                    <%  if alarm.sleep_reminder_type == 'call' %>
-                      <%= image_tag "ic_action_call.png" %>
-                    <% else %>
-                      <%= image_tag "ic_action_chat.png" %>
-                    <% end %>
+              <!-- alarm item -->
+              <div class="row alarm_box">
+                <div class="col-xs-3 alarm_type">
+                  <%  if alarm.wakeup_reminder_type == 'call' %>
+                    <span class="glyphicon glyphicon-earphone"></span><br><span class="alarm_type_text">Phone</span>
+                  <% else %>
+                    <span class="glyphicon glyphicon-envelope"></span><br><span class="alarm_type_text">SMS</span>
                   <% end %>
-                </div>  
+                 </div>
+
+                <div class="col-xs-8 alarm_content">
+                  <div class="alarm_title"> <%= alarm.title %> </div>
+                  <div class="alarm_time"> <%= alarm.wakeup_hour%>:<%= alarm.wakeup_minute %> <%= alarm.wakeup_ampm  %> </div>
+                  <div class="dayofweeks">
+                    <span class="alarm_day <%= (alarm.repeat_sunday == '1')? "day_active"  :  "day_non_active"%>">SUN</span>
+                    <span class="alarm_day <%= (alarm.repeat_monday == '1')? "day_active"  :  "day_non_active"%>">MON</span>&nbsp;
+                    <span class="alarm_day <%= (alarm.repeat_tuesday == '1')? "day_active"  :  "day_non_active"%>">TUES</span>&nbsp;
+                    <span class="alarm_day <%= (alarm.repeat_wednesday == '1')? "day_active"  :  "day_non_active"%>">WED</span>&nbsp;
+                    <span class="alarm_day <%= (alarm.repeat_thursday == '1')? "day_active"  :  "day_non_active"%>">THURS</span>&nbsp;
+                    <span class="alarm_day <%= (alarm.repeat_friday == '1')? "day_active"  :  "day_non_active"%>">FRI</span>&nbsp;
+                    <span class="alarm_day <%= (alarm.repeat_saturday == '1')? "day_active"  :  "day_non_active"%>">SAT</span>
+                  </div><br>
+
+                  <% if alarm.sleep_reminder_time != '0' %>
+                     <%  if alarm.sleep_reminder_type == 'call' %>
+                      <span class="glyphicon glyphicon-earphone"></span><span class="reminder_text"> Reminder : <%= alarm.sleep_reminder_time %> <%=alarm.sleep_reminder_time_unit %> before</span>
+                    <% else %>
+                      <span class="glyphicon glyphicon-envelope"></span><span class="reminder_text"> Reminder : <%= alarm.sleep_reminder_time %> <%=alarm.sleep_reminder_time_unit %> before</span>
+                    <% end %>
+                  <% else %>
+                    <span class="reminder_text">No reminder</span>
+                  <% end %>
+                </div>
+                <div class="col-xs-1 alarm_content">
+                    <%= button_to 'x', alarm, :method => :delete, :class=>"btn btn-danger btn-xs" %><br><br><br>
+                    <a data-toggle="modal" href="/alarms/<%= alarm.id %>/edit" data-target="#editAlarm" class="btn btn-warning btn-xs"><span class="glyphicon glyphicon-pencil small_font"></span></a>
+                </div>
               </div>
-              <div class="col-xs-2 btn-discard"> <%= button_to 'x', alarm, :method => :delete %></div> 
-            
-              <a data-toggle="modal" href="/alarms/<%= alarm.id %>/edit" data-target="#myModal">Click me !</a>
-            </div>
-          </div> 
-        <%end%>
-      <% else %>
-        <h4>You have no alarm yet. Create alarm on the right.</h4>
-      <% end %>   		
-    </div>  
+            <%end%>
+          <% else %>
+            <h4>You have no alarm yet. Create + above to create an alarm</h4>
+          <% end %>  
+        </div>
+        <div class="col-md-4"></div> 		
+      </div>  
+    </div>
   </div>
-</div>
 </div>
 
 
@@ -60,7 +74,28 @@
 
 
 <!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="editAlarm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                 <h4 class="modal-title">Edit</h4>
+
+            </div>
+            <div class="modal-body"><div class="te"></div></div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-primary">Save changes</button>
+            </div>
+        </div>
+        <!-- /.modal-content -->
+    </div>
+    <!-- /.modal-dialog -->
+</div>
+<!-- /.modal -->
+
+
+<div class="modal fade" id="addAlarm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">

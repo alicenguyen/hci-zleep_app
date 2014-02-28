@@ -1,8 +1,9 @@
 .alarm_box
 {
     background-color: #2980B9;
-    padding: 3px;
+    padding-top:6px;
     margin: 2px;
+    margin-bottom: 5px;
 }
 
 .reminder_text

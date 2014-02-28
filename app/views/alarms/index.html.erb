@@ -54,7 +54,10 @@
                   <% end %>
                 </div>
                 <div class="col-xs-1 alarm_content">
-                    <%= button_to 'x', alarm, :method => :delete, :class=>"btn btn-danger btn-xs" %><br><br><br>
+                    <%= link_to alarm, confirm: 'Are you sure?', disable_with: 'deleting...', method: :delete, class: 'btn btn-danger btn-xs' do %>
+         <span class=" glyphicon glyphicon-remove small_font"></span><% end %><br><br><br><br>
+
+
                     <a data-toggle="modal" href="/alarms/<%= alarm.id %>/edit" data-target="#editAlarm" class="btn btn-warning btn-xs"><span class="glyphicon glyphicon-pencil small_font"></span></a>
                 </div>
               </div>

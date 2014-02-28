@@ -17,26 +17,30 @@ skip_before_filter  :verify_authenticity_token
     #Rails.logger.debug post_params.inspect
 
     @alarm.save
-    redirect_to(new_alarm_path)
+    redirect_to(alarms_path)
   end
 
-  def edit 
+  def edit
+    render :layout => 'blank'
       @alarms = current_user.alarms.all
       @alarm = Alarm.find(params[:id])
-      if @alarm.user_id != current_user.id
-        render :file => File.join(Rails.root, 'public', '500.html')
-      end
+     # if @alarm.user_id != current_user.id
+     #   render :file => File.join(Rails.root, 'public', '500.html')
+     # end
   end
 
   def update
     @alarm = Alarm.find(params[:id])
     if @alarm.update_attributes(params[:alarm])
       @alarm.save
-      redirect_to(:action => 'new')
+      redirect_to(@alarm)
     else
-      render('edit')
+      redirect_to('index')
     end
   end
+
+
+
 
   def destroy
     @post = Alarm.find(params[:id])
@@ -53,8 +57,6 @@ skip_before_filter  :verify_authenticity_token
   def sleep
     render :layout => 'goodnight'
   end
-
-
 
 
   private

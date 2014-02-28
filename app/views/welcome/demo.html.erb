@@ -2,7 +2,7 @@
   <div class="col-md-1"></div>
   <div class="col-md-4">
     <h3> Select User </h3>
-    <%= form_tag("/welcome/calling", method: "post") do %>
+    <%= form_tag("/welcome/contact", method: "post") do %>
       
       <%= select_tag(:user_id, options_from_collection_for_select(@users, :id , :first_name), class: 'form-control' ) %>
       <h3> Select Method </h3>

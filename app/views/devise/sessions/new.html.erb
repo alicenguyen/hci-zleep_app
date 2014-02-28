@@ -1,12 +1,77 @@
 <%= devise_error_messages! %>
-
-
+	
 <div class="row login_center">
-  <div class="col-md-4"></div>
+  <div class="col-md-7 carousel_padding">
+    <div id="carousel-example-captions" class="carousel slide" data-ride="carousel">
+      <ol class="carousel-indicators">
+        <li data-target="#carousel-example-captions" data-slide-to="0" class="active"></li>
+        <li data-target="#carousel-example-captions" data-slide-to="1" ></li>
+        <li data-target="#carousel-example-captions" data-slide-to="2" ></li>
+	<li data-target="#carousel-example-captions" data-slide-to="3" ></li>
+	<li data-target="#carousel-example-captions" data-slide-to="4" ></li>
+	<li data-target="#carousel-example-captions" data-slide-to="5" ></li>
+
+      </ol>
+      <div class="carousel-inner">
+
+        <div class="item active">
+          <img data-src="holder.js/900x500/auto/#777:#777" alt="900x500" src="/asset/hittingsnooze.jpg"><br><br><br><br><br><br><br><br><br>
+          <div class="carousel-caption carosel_text">
+            <h3>Do you angrily pound "snooze" every morning?</h3>
+          </div>
+        </div>
+        <div class="item">
+          <img data-src="holder.js/900x500/auto/#666:#666" alt="900x500" src="/asset/fallasleepmiddleofday.jpg"><br><br><br><br><br><br><br><br><br>
+<div class="carousel-caption carosel_text">
+            <h3>Feeling sluggish all day?</h3>
+          </div>
+        </div>
+        <div class="item">
+          <img data-src="holder.js/900x500/auto/#666:#666" alt="900x500" src="/asset/sleepingduringmeetings.jpg"><br><br><br><br><br><br><br><br><br>
+<div class="carousel-caption carosel_text">
+            <h3>Can't stay awake during that important meeting?</h3>
+          </div>
+        </div>
+        <div class="item">
+          <img data-src="holder.js/900x500/auto/#666:#666" alt="900x500" src="/asset/asleeponwall.jpg"><br><br><br><br><br><br><br><br><br>
+<div class="carousel-caption carosel_text">
+            <h3>Are you a zombie without your mid-day nap?</h3>
+          </div>
+        </div>
+        <div class="item">
+          <img data-src="holder.js/900x500/auto/#666:#666" alt="900x500" src="/asset/coffeemaker.jpg"><br><br><br><br><br><br><br><br><br>
+          <div class="carousel-caption carosel_text">
+            <h3>Fatigue, lethargy, and irritability got you down?</h3>
+          </div>
+        </div>
+        <div class="item">
+          <img data-src="holder.js/900x500/auto/#555:#5555" alt="900x500" src="/asset/asleepatdesk.jpg><br><br><br><br><br><br><br><br><br>
+          <div class="carousel-caption carosel_text">
+            <h3>Let Zleep! help!, Sign up below!</h3>
+          </div>
+        </div>
+      </div>
+      <a class="left carousel-control" href="#carousel-example-captions" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+      </a>
+      <a class="right carousel-control" href="#carousel-example-captions" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right"></span>
+      </a>
+    </div>
+
+
+
+
+
+  </div>
+  <div class="col-md-1"></div>
+
   <div class="col-md-4">
   	<h1> Welcome to <b>Zleep</b></h1>
 	<h4><i>Your personalized sleep-science assistant!</i></h4>
-  	<br><br><br>
+  	<br>
+  	
+	<br><br>
   	<%= content_tag(:div, flash[:error], :id => "flash_error") if flash[:error] %>
 <%= content_tag(:div, flash[:notice], :id => "flash_notice") if flash[:notice] %>
 <%= content_tag(:div, flash[:alert], :id => "flash_alert") if flash[:alert] %>
@@ -37,7 +102,6 @@
 
 
   </div>
-  <div class="col-md-4"></div>
 
 </div>
 

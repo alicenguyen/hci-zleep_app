@@ -1,3 +1,65 @@
+.alarm_box
+{
+    background-color: #2980B9;
+    padding: 3px;
+    margin: 2px;
+}
+
+.less_pad
+{
+    padding-top: 10px;
+    padding-bottom: 10px
+}
+
+.carosel_text
+{
+    color: #000000;
+    font-weight: 800;
+    line-height: 1.1;
+}
+
+.alarm_type
+{
+    background-color: #3498DB;
+    font-size: 40px;
+    text-align: center;
+    padding-top: 40px;
+    padding-left:18px;
+    height: 120px;
+
+}
+
+.alarm_time
+{
+    font-size: 25px;
+    font-family: inherit;
+    font-weight: 800;
+    line-height: 1.1;
+    color: #C0392B;
+}
+
+.alarm_title
+{
+    font-size: 25px;
+    font-family: inherit;
+    font-weight: 800;
+    line-height: 1.1;
+    color: inherit;
+    padding-bottom: 2px;
+}
+
+.dayofweeks
+{
+    font-size: 15px;
+}
+
+.alarm_content
+{
+    background-color:  #ECF0F1;
+    padding: 7px;
+    height: 120px;
+
+}
 
 body {
     padding-top: 90px;

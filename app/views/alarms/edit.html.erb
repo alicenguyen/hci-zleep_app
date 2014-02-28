@@ -3,6 +3,8 @@
   $( document ).ready(function() {
     $('#second_slide').hide();
     $('#second_click').hide();
+    $('#checkbox-list-days').hide();
+
 
   });
 
@@ -16,6 +18,22 @@
 
   }
 
+
+function initializePage () {
+  $('#repeat_days:checkbox').click(function() {
+    var $this = $(this);
+    // $this will contain a reference to the checkbox   
+    if ($this.is(':checked')) {
+      $('#checkbox-list-days').slideDown( "fast");
+    } else {
+      $('#checkbox-list-days').slideUp( "fast");
+
+    }
+  });
+  _modalHandler();
+}
+
+
 </script>
 
 <%= form_for :alarm, url: alarm_path(@alarm), method: :patch do |f| %>
@@ -26,6 +44,7 @@
 
     </div>
     <div class="modal-body">
+
       <div class="first_slide" id="first_slide">
         <div class="row">
           <div class="col-xs-12 col-time-input">
@@ -40,7 +59,7 @@
             </form>
           </div>
         </div>
-        <div class="row"> <div class="col-xs-6 form-inline"> <span>title:</span> <input id="title-text-field" /></div> </div>
+        <div class="row"> <div class="col-xs-6 form-inline"> <span>title:</span>     <%= f.text_field :title %></div> </div>
 
         <div class="row" style="margin-top:25px">
           <div class="col-xs-12">
@@ -49,15 +68,52 @@
 
         <div class="row"> 
           <div id="col-repeat-input" class="col-xs-12">
-            <label class="checkbox-inline">REPEAT<input type="checkbox" id="repeatCheckbox"/></label>
+            <label class="checkbox-inline">REPEAT<input type="checkbox" id="repeat_days"/></label>
             <div id="checkbox-list-days">
-              <label class="checkbox-inline"> <input type="checkbox" id="sunday" name="dayCheckBox"/>sun</label>
+              <% if @alarm.repeat_sunday == "true" %> 
+                <label class="checkbox-inline"> <input type="checkbox" id="sunday" name="dayCheckBox" checked="" />sun</label>
+              <% else %>
+                <label class="checkbox-inline"> <input type="checkbox" id="sunday" name="dayCheckBox" />sun</label>
+              <% end %>
+
+              <% if @alarm.repeat_monday == "true" %> 
+              <label class="checkbox-inline"> <input type="checkbox" id="monday" name="dayCheckBox" checked="" />mon</label>
+              <% else %>
               <label class="checkbox-inline"> <input type="checkbox" id="monday" name="dayCheckBox"/>mon</label>
+              <% end %>
+
+              <% if @alarm.repeat_tuesday == "true" %> 
+              <label class="checkbox-inline"> <input type="checkbox" id="tuesday" name="dayCheckBox" checked="" />tues</label>
+              <% else %>
               <label class="checkbox-inline"> <input type="checkbox" id="tuesday" name="dayCheckBox"/>tues</label>
+              <% end %>
+
+              <% if @alarm.repeat_wednesday == "true" %> 
+              <label class="checkbox-inline"> <input type="checkbox" id="wednesday" name="dayCheckBox" checked="" />wed</label>
+              <% else %>
               <label class="checkbox-inline"> <input type="checkbox" id="wednesday" name="dayCheckBox"/>wed</label>
+              <% end %>
+
+
+              <% if @alarm.repeat_thursday == "true" %> 
+              <label class="checkbox-inline"> <input type="checkbox" id="thursday" name="dayCheckBox" checked="" />thurs</label>
+              <% else %>
               <label class="checkbox-inline"> <input type="checkbox" id="thursday" name="dayCheckBox"/>thurs</label>
+              <% end %>
+
+              <% if @alarm.repeat_friday == "true" %> 
+              <label class="checkbox-inline"> <input type="checkbox" id="friday" name="dayCheckBox" checked="" />fri</label>
+              <% else %>
               <label class="checkbox-inline"> <input type="checkbox" id="friday" name="dayCheckBox"/>fri</label>
+              <% end %>
+
+
+              <% if @alarm.repeat_saturday == "true" %> 
+              <label class="checkbox-inline"> <input type="checkbox" id="saturday" name="dayCheckBox" checked="" />sat</label>
+              <% else %>
               <label class="checkbox-inline"> <input type="checkbox" id="saturday" name="dayCheckBox"/>sat</label>
+              <% end %>
+
             </div>
           </div><!--/.col-repeat-input -->   
         </div>
@@ -89,5 +145,18 @@
   </div>
 <% end %>
 
+
+
+
+<script> 
+  $('.timepicker').timepicker().on('show.timepicker', function(e) {
+    e.preventDefault();
+    console.log('The time is ' + e.time.value);
+    var hour = $(".bootstrap-timepicker-hour").val();
+    console.log('The hour is ' + e.time.showInputs);
+    console.log('The minute is ' + e.time.minute);
+    console.log('The meridian is ' + e.time.meridian);
+  });
+</script>
 
 

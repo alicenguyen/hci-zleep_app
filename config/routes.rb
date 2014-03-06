@@ -17,7 +17,7 @@ Zleep::Application.routes.draw do
   get "welcome/calling" => "welcome#calling", :as => :welcome_calling
   get "welcome/texting" => "welcome#texting", :as => :welcome_texting
   get "welcome/demo"
-
+  get "twilio/scheduler"
 
 
 

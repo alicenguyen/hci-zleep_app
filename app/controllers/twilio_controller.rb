@@ -53,10 +53,11 @@ class TwilioController < ApplicationController
 						  :body => "Please go to sleep. You have to wake up tomorrow"
 						)
 					end
-					end
+				end
 
 				
 			end
 
 		end
+	end
 end

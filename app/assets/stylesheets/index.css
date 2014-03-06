@@ -3,6 +3,14 @@ body
     background-color: #3498DB;
 }
 
+
+#goTop{
+    padding:5px;
+    position:fixed;
+    bottom: 20px;
+    right:10px;
+}
+
 .main_content
 {
     margin-top: 100px;

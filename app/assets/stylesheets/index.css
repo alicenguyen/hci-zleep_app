@@ -5,7 +5,10 @@ body
 
 .main_content
 {
-    padding-top: 100px;
+    margin-top: 100px;
+    background-color: white;
+    padding-top: 50px;
+    padding-bottom: 50px;
 }
 
 .alarm_box
@@ -19,7 +22,7 @@ body
 
 .reminder_text
 {
-    font-size: 13px;
+    font-size: 10px;
 }
 .alarm_type_text
 {
@@ -82,7 +85,7 @@ body
 
 .dayofweeks
 {
-    font-size: 15px;
+    font-size: 12px;
 }
 
 .alarm_content

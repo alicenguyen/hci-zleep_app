@@ -2,6 +2,20 @@
   <%= link_to "Sign in", new_session_path(resource_name) %><br />
 <% end -%>
 
+
+<%- if devise_mapping.omniauthable? %>
+  <%- resource_class.omniauth_providers.each do |provider| %>
+    <%= link_to image_tag("facebook_logo.png", :border => 0), omniauth_authorize_path(resource_name, provider) %><br />
+  <% end -%>
+<% end -%>
+
+
+<div id = "test_id"></div>
+<%= link_to "AJAX", "/poc/change", :remote => true %>
+
+
+<br><br>
+
 <%- if devise_mapping.registerable? && controller_name != 'registrations' %>
   <%= link_to "Sign up", new_registration_path(resource_name) %><br />
 <% end -%>
@@ -18,8 +32,3 @@
   <%= link_to "Didn't receive unlock instructions?", new_unlock_path(resource_name) %><br />
 <% end -%>
 
-<%- if devise_mapping.omniauthable? %>
-  <%- resource_class.omniauth_providers.each do |provider| %>
-    <%= link_to "Sign in with #{provider.to_s.titleize}", omniauth_authorize_path(resource_name, provider) %><br />
-  <% end -%>
-<% end -%>

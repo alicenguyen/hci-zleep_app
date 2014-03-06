@@ -28,9 +28,8 @@ color:  #999;
 .alarm_day
 {
 
-  font-size: 12px;
+  font-size: 10px;
   text-align: center;
-  text-transform: lowercase;
 }
 
 .alarm_description

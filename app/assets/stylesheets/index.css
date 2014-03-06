@@ -1,10 +1,21 @@
+body
+{
+    background-color: #3498DB;
+}
+
+.main_content
+{
+    padding-top: 100px;
+}
+
 .alarm_box
 {
-    background-color: #2980B9;
+    background-color: #16A085;
     padding-top:6px;
     margin: 2px;
     margin-bottom: 5px;
 }
+
 
 .reminder_text
 {
@@ -34,14 +45,19 @@
     line-height: 1.1;
 }
 
+.alarm_type_background
+{
+        background-color: #2ECC71;
+    height: 120px;
+
+}
+
 .alarm_type
 {
-    background-color: #3498DB;
     font-size: 40px;
     text-align: center;
-    padding-top: 40px;
-    padding-left:18px;
-    height: 120px;
+    padding-top: 10px;
+    padding-bottom: 5px;
 
 }
 
@@ -77,9 +93,7 @@
 
 }
 
-body {
-    padding-top: 90px;
-}
+
 
 .title
 {

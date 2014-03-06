@@ -36,7 +36,7 @@ class TwilioController < ApplicationController
 					puts "CURRENT TIME #{current_hour} #{current_minute} #{current_ampm}"
 					puts "ALARM TIME #{alarm.wakeup_hour} #{alarm.wakeup_minute} #{alarm.wakeup_ampm}"
 					if (( alarm.wakeup_hour == current_hour) && (alarm.wakeup_minute == current_minute) && (alarm.wakeup_ampm.downcase == current_ampm) )
-					url = "http://twimlets.com/message?Message%5B0%5D=This%20is%20a%20wake%20up%20call%20from%20zleep.%20The%20current%20time%20is%20#{alarm.wakeup_hour}%3A#{alarm.wakeup_minute}%20#{wakeup_ampm}.%20Please%20wake%20up%20you%20have%20a%20#{URI.escape(alarm.title)}%20coming%20up.%20Have%20a%20great%20day.&"
+					url = "http://twimlets.com/message?Message%5B0%5D=This%20is%20a%20wake%20up%20call%20from%20zleep.%20The%20current%20time%20is%20#{alarm.wakeup_hour}%3A#{alarm.wakeup_minute}%20#{alarm.wakeup_ampm}.%20Please%20wake%20up%20you%20have%20a%20#{URI.escape(alarm.title)}%20coming%20up.%20Have%20a%20great%20day.&"
 					puts url
 					@client.account.calls.create(
 					  :from => '+18587629676',

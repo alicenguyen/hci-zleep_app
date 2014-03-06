@@ -33,6 +33,8 @@ class TwilioController < ApplicationController
 					puts " #{alarm.user.first_name} #{alarm.user.last_name} doesn't have phone number"
 				else
 					user_phone = alarm.user.phone_number
+					puts "CURRENT TIME #{current_hour} #{current_minute} #{current_ampm}"
+					puts "ALARM TIME #{alarm.wakeup_hour} #{alarm.wakeup_minute} #{alarm.wakeup_ampm}"
 					if (( alarm.wakeup_hour == current_hour) && (alarm.wakeup_minute == current_minute) && (alarm.wakeup_ampm.downcase == current_ampm) )
 
 					url = "http://twimlets.com/message?Message%5B0%5D=This%20is%20a%20wake%20up%20call%20from%20Zleep.%20You%20have%20a%20#{URI.escape(alarm.title)}%20at%20#{alarm.wakeup_hour}%3A#{alarm.wakeup_minute}%20#{alarm.wakeup_ampm}.%20Please%20wake%20up%20and%20have%20a%20great%20day.&"

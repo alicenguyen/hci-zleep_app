@@ -10,11 +10,8 @@
 function initializePage () {
   $('#second_slide').hide();
   $('#second_click').hide();
-
   $('.timepicker').timepicker();
   $('#timepicker').timepicker().on('hide.timepicker', function(e) { _timeUpdate()});
-
-
 };
 
 function nextSlide()
@@ -81,10 +78,10 @@ function saveData()
 function resetData() {
   $('.timepicker').timepicker();
   history.go(0);
+
 }
 
 function _timeUpdate () {
-
   var t = new Time();
   var a = new Alarm(t.time(), $('#alarm-options').val());
   if ($('#alarm-options').val() == 'wakeup')  
@@ -93,10 +90,12 @@ function _timeUpdate () {
     SleepTime(a); 
   a.calculateTimes();
   timelistHTML = a.getTimesInHTML();
+
 }
 
 function showSaveBtn () {
   $('#second_click').prop("disabled",null);
+
 }
 </script>
 

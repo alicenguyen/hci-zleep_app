@@ -97,9 +97,9 @@ function SleepTime (alarm) {
   }
 
     alarm.getTimesInHTML = function () {
-  var header = "<h3 style='color:#167c80;'>If you sleep at " + alarm.toStringTime() + "</h3>";
+  var header = "<h3 style='color:#27ae60;'>If you sleep at " + alarm.toStringTime() + "</h3>";
 
-        header +="<h4 style='color:#167c80;'>You should wakeup at one of the following times:</h4>";
+        header +="<h4 style='color:#27ae60;'>You should wakeup at one of the following times:</h4>";
     var body = '';
     var times = alarm.calcTimes;
      for ( var i in times ) { body += _radioTag ( i, times[i][0], times[i][1]['label']); } 

@@ -16,7 +16,7 @@ class TwilioController < ApplicationController
 		if (params[:task] == "scheduler")
 			current_hour = Time.now.strftime("%I").to_f
 			current_minute = Time.now.strftime("%M").to_f
-			current_ampm = Time.now.strftime("%P").to_f
+			current_ampm = Time.now.strftime("%P")
 			account_sid = 'AC2ec0c952461062525f1c31d404bbb2e4'
 			auth_token = 'cae29f856b7ad008c35deca310afe220'
 			@client = Twilio::REST::Client.new account_sid, auth_token

@@ -1,27 +1,47 @@
-//
-// helper function 
+/**
+ * @author Alice Nguyen
+ *
+ */
 function Time () {
   this.time = function () {
-    var hour = parseInt( $(".bootstrap-timepicker-hour").val() );
+    var h_input = parseInt( $(".bootstrap-timepicker-hour").val() );
     var min = parseInt( $(".bootstrap-timepicker-minute").val() );
-    var meridian = $(".bootstrap-timepicker-meridian").val();  
+    var ampm_input = $(".bootstrap-timepicker-meridian").val();  
+    var hour = _convertToMilitaryHour (ampm_input, h_input, min);
 
-    if (meridian === 'PM') {
-      hour = hour + 12;
-      console.log('hour updated: ' + hour);
+
+    var t = new Date();
+    t.setHours(hour);
+    t.setMinutes(min);
+    console.log(">>>>> h_input: " + h_input + " hour: " + hour + " >>>>>> " + t.toTimeString());
+
+    return t;
+  };
+
+  var _convertToMilitaryHour = function ( ampm, hours, minutes ) {
+    var militaryHours;
+    if( ampm == "AM" ) {
+      militaryHours = hours;
+      // check for special case: midnight
+      if( militaryHours == "12" ) { militaryHours = "00"; }
+    } else {
+      if( ampm == "PM" || am == "p.m." ) {
+        // get the interger value of hours, then add
+        tempHours = parseInt( hours ) + 2;
+        // adding the numbers as strings converts to strings
+        if( tempHours < 10 ) tempHours = "1" + tempHours;
+        else tempHours = "2" + ( tempHours - 10 );
+        // check for special case: noon
+        if( tempHours == "24" ) { tempHours = "12"; }
+        militaryHours = tempHours;
+      }
     }
-
-    var d = new Date();
-    d.setHours(hour);
-    d.setMinutes(min);
-    console.log("Time.prototype.getTime: " + d.toTimeString());
-    return d;
+    return militaryHours;
   };
 }
 
-
 //
-// Alarm
+// Alarm (class to decorate)
 function Alarm (dateObj, type) {
   this.time = dateObj; // date object
   this.type = type;
@@ -53,56 +73,56 @@ Alarm.prototype.toStringTime = function () {
 }
 
 
-
-
-// Wakeup decorator 
+// decorate #1 -- WakeTime
+//
 // substract time to get suggested sleep times
-function WakeTime (alarm) {
+//
+
+function UserWakeTime (alarm) {
 
   alarm.calculateTimes = function () {
     console.log("time: " + alarm.time);
     for( var i in alarm.amounts )  {
       var ctime = new Date();
-      var amount = alarm.amounts[i]
+      var amount = alarm.amounts[i];
       ctime.setHours ( alarm.time.getHours() - amount['hours'] );
       ctime.setMinutes ( alarm.time.getMinutes() - amount['minutes']);
       alarm.calcTimes.push([ctime, amount]);
-      console.log("wakeTimes.caclulateTimes: " + ctime.toString());
+      console.log("wt.calculated: " + ctime.toTimeString());
     }
   }
-  
+
   alarm.getTimesInHTML = function () {
-    
     var header = "<h3 style='color:#f8512f;'>If you wake up at " + alarm.toStringTime() + "</h3>";
-      header+= "<h4 style='color:#f8512f;'>then you should fall asleep at one of the following times:</h4>";
+    header += "<h4 style='color:#f8512f;'>then you should fall asleep at one of the following times:</h4>";
     var body = '';
     var times = alarm.calcTimes;
-     for ( var i in times ) { body += _radioTag ( i, times[i][0], times[i][1]['label']); } 
+    for ( var i in times ) { body += _radioTag ( i, times[i][0], times[i][1]['label']); } 
     return header+body;
   }
 
 }
 
-function SleepTime (alarm) {
+function UserSleepTime (alarm) {
   alarm.calculateTimes = function () {
-    console.log("time: " + alarm.time);
     for( var i in alarm.amounts )  {
+      console.log("time before:  " + alarm.time);
       var ctime = new Date();
-      var amount = alarm.amounts[i]
-      ctime.setHours ( alarm.time.getHours() + amount['hours'] );
-      ctime.setMinutes ( alarm.time.getMinutes() + amount['minutes']);
+      var amount = alarm.amounts[i];
+      ctime.setHours ( alarm.time.getHours() + amount['hours']);
+      ctime.setMinutes ( alarm.time.getMinutes() + amount['minutes'] );
       alarm.calcTimes.push([ctime, amount]);
-      console.log("SleepTimes.caclulateTimes: " + ctime.toString());
+      console.log("st.calculated:  " + ctime.toTimeString());
     }
   }
 
-    alarm.getTimesInHTML = function () {
-  var header = "<h3 style='color:#27ae60;'>If you sleep at " + alarm.toStringTime() + "</h3>";
+  alarm.getTimesInHTML = function () {
+    var header = "<h3 style='color:#27ae60;'>If you sleep at " + alarm.toStringTime() + "</h3>";
 
-        header +="<h4 style='color:#27ae60;'>You should wakeup at one of the following times:</h4>";
+    header +="<h4 style='color:#27ae60;'>You should wakeup at one of the following times:</h4>";
     var body = '';
     var times = alarm.calcTimes;
-     for ( var i in times ) { body += _radioTag ( i, times[i][0], times[i][1]['label']); } 
+    for ( var i in times ) { body += _radioTag ( i, times[i][0], times[i][1]['label']); } 
     return header+body;
   }
 }
@@ -117,14 +137,14 @@ function _radioTag (id, dateObj, label) {
     meridian = 'PM';
   }
   var label = hour + ':' + minute + ' ' + meridian +' (' + label + ')';
-      return "<div class='radio'> <label> <input type='radio' name='radioReminder' id="+id+" hour="+hour+" minute=" + minute + " ampm=" + meridian + "  onchange='showSaveBtn()'>"+label+" </label> </div> ";
+  return "<div class='radio'> <label> <input type='radio' name='radioReminder' id="+id+" hour="+hour+" minute=" + minute + " ampm=" + meridian + "  onchange='showSaveBtn()'>"+label+" </label> </div> ";
 }
 
 
-function _hourEnd () { return  hour;}
-function _minuteEnd () {return  min;}
+      function _hourEnd () { return  hour;}
+      function _minuteEnd () {return  min;}
 
-function _hourStart () { return $('input[name=radioReminder]:checked').attr("hour"); }
-function _minuteStart () { return $('input[name=radioReminder]:checked').attr("minute");}
-function _ampmStart () { return $('input[name=radioReminder]:checked').attr("ampm");}
+      function _hourStart () { return $('input[name=radioReminder]:checked').attr("hour"); }
+      function _minuteStart () { return $('input[name=radioReminder]:checked').attr("minute");}
+      function _ampmStart () { return $('input[name=radioReminder]:checked').attr("ampm");}
 

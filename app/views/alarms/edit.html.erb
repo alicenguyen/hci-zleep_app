@@ -1,4 +1,5 @@
 <script type="text/javascript">
+  var timelistHTML = '';
   (function() {
     $(document).ready(function(){
       initializePage();
@@ -6,7 +7,8 @@
   }).call(this);
 
 
-function initializePage () {
+function initializePage () 
+{
   $('#second_slide').hide();
   $('#second_click').hide();
   $('.timepicker').timepicker();
@@ -83,9 +85,9 @@ function _timeUpdate () {
   var t = new Time();
   var a = new Alarm(t.time(), $('#alarm-options').val());
   if ($('#alarm-options').val() == 'wakeup')  
-    WakeTime(a); 
+    UserWakeTime(a); 
   else  
-    SleepTime(a); 
+    UserSleepTime(a); 
   a.calculateTimes();
   timelistHTML = a.getTimesInHTML();
 

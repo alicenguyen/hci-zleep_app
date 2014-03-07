@@ -21,10 +21,6 @@ class TwilioController < ApplicationController
 			auth_token = 'cae29f856b7ad008c35deca310afe220'
 			@client = Twilio::REST::Client.new account_sid, auth_token
 
-			puts current_hour
-			puts current_minute
-			puts current_ampm
-
 			@alarms = Alarm.all
 
 			@alarms.each do |alarm| 
@@ -37,9 +33,9 @@ class TwilioController < ApplicationController
 					puts "ALARM TIME #{alarm.wakeup_hour} #{alarm.wakeup_minute} #{alarm.wakeup_ampm}"
 
 
-					if (( alarm.wakeup_hour == current_hour) && (alarm.wakeup_hour == current_minute) && (alarm.wakeup_hour.downcase == current_ampm) )
+					if (( alarm.wakeup_hour == alarm.wakeup_hour) && (alarm.wakeup_hour == alarm.wakeup_hour) && (alarm.wakeup_hour.downcase == alarm.wakeup_hour.downcase) )
 						url = "http://twimlets.com/message?Message%5B0%5D=This%20is%20a%20wake%20up%20call%20from%20zleep.%20The%20current%20time%20is%20#{alarm.wakeup_hour}%3A#{alarm.wakeup_minute}%20#{alarm.wakeup_ampm}.%20Please%20wake%20up%20you%20have%20a%20#{URI.escape(alarm.title)}%20coming%20up.%20Have%20a%20great%20day.&"
-
+						puts "TEST 1"
 						if (alarm.wakeup_reminder_type == "sms")	
 							puts "Wakeup SMS"
 							@client.account.messages.create(
@@ -60,6 +56,8 @@ class TwilioController < ApplicationController
 					
 
 					if (( alarm.sleeping_hour == current_hour) && (alarm.sleeping_minute == current_minute) && (alarm.sleeping_ampm.downcase == current_ampm) )
+						puts "TEST 2"
+
 						reminder_url= "http://twimlets.com/message?Message%5B0%5D=Please%20go%20to%20sleep%20now.%20You%20have%20to%20wake%20up%20at%20#{alarm.wakeup_hour}%3A#{alarm.wakeup_minute}%20#{alarm.wakeup_ampm}%20for%20#{URI.escape(alarm.title)}.&"
 						if (alarm.sleep_reminder_type == "sms")
 							puts "REMINDER SMS"

@@ -1,184 +1,125 @@
-(function() {
-  $(document).ready(function(){
-    initializePage();
-  });
-}).call(this);
+//
+// helper function 
+function Time () {
+  this.time = function () {
+    var hour = parseInt( $(".bootstrap-timepicker-hour").val() );
+    var min = parseInt( $(".bootstrap-timepicker-minute").val() );
+    var meridian = $(".bootstrap-timepicker-meridian").val();  
 
-var type = $("#alarm_alarm_type option:selected").text();
-var hour =$(".bootstrap-timepicker-hour").val();
-var min =$(".bootstrap-timepicker-minute").val();
-var ampm = $("#alarm_ampm option:selected").text(); 
-var repeatingDays = '';
-var reminder_type = '';
-var reminder_time = '';
-
-function initializePage () {
-  $('#checkbox-list-days').hide();
-  $('#repeatCheckbox:checkbox').click(function() {
-    var $this = $(this);
-    // $this will contain a reference to the checkbox   
-    if ($this.is(':checked')) {
-      $('#checkbox-list-days').slideDown( "fast");
-    } else {
-      $('#checkbox-list-days').slideUp( "fast", function() {
-        $('input[name=dayCheckBox]').prop('checked', false);
-      });
-
+    if (meridian === 'PM') {
+      hour = hour + 12;
+      console.log('hour updated: ' + hour);
     }
-  });
-  _modalHandler();
+
+    var d = new Date();
+    d.setHours(hour);
+    d.setMinutes(min);
+    console.log("Time.prototype.getTime: " + d.toTimeString());
+    return d;
+  };
 }
 
 
-/* ======================*/
-/* Alarm Module          */
-/* ======================*/
-function Alarm(hour, min) {
-  var timeA = new Date();
-  var timeB = [new Date(), new Date(), new Date()];
-  var amounts = [{ hours: 7, minutes: 55 }, { hours: 9, minutes: 25 }, { hours: 10, minutes: 55 }];
-  timeA.setHours(hour);
-  timeA.setMinutes(min);
-  var localFormat = [];
+//
+// Alarm
+function Alarm (dateObj, type) {
+  this.time = dateObj; // date object
+  this.type = type;
+  this.amounts = [{ hours: 7, minutes: 44, label: '7h 44m'}, { hours: 9, minutes: 14, label: '9h 44m' }, { hours: 10, minutes: 44, label: '10h 44m'}];
+  this.calcTime = '';
+  this.calcTimes = [];  
+  this.calculateTimes = function () {};
+  this.getTimesHTML = function () {};
+}
+Alarm.prototype.toString = function () {
+  if (this.calcTimes.length == 0) 
+    return 'No calculated times';
+  var msg = '';
+  for (var i in this.calcTimes) {
+    msg += this.calcTimes[i].toString();
+  } 
+  return msg;
+}
 
-  console.log("timeA: " + timeA.toString());
-  for ( var i in timeB) {
-    var alarmHour = timeA.getHours();
-    var alarmMin = timeA.getMinutes();
-    var amountHour = amounts[i]["hours"];
-    var amountMin = amounts[i]["minutes"];
-    var ampm = 'am';
-    timeB[i].setHours(hour - amountHour);
-    timeB[i].setMinutes(min - amountMin - 14);
-    if (timeB[i].getHours() > 12) 
-      ampm = 'pm';
-    console.log("timeB: " + timeB[i].toString() + " (" +amountHour+ ", " +amountMin+ ")");
-
-    localFormat.push([_timeFormatter(timeB[i].toLocaleTimeString()), amountHour + 'h' + amountMin + 'm', _toTimeArray(timeB[i].toLocaleTimeString())]);
+Alarm.prototype.toStringTime = function () {
+  var hour = this.time.getHours() % 12;
+  if ( hour == 0 ) hour = 12;
+  var minute = (this.time.getMinutes()<10?'0':'') +  this.time.getMinutes();
+  var meridian = 'AM';
+  if (this.time.getHours() > 12 ) {
+    meridian = 'PM';
   }
-  this.times = localFormat;
-
-  // form time to [<hour>, <min>, <AM/PM>]]
-  function _timeFormatter (time) {
-    var str1 = time.split(' ');
-    var str2 = str1[0].split(":");
-    return str2[0] + ":" + str2[1] + ' ' +str1[1];
-  }
-
-  function _toTimeArray (time) {
-    var str1 = time.split(' ');
-    var str2 = str1[0].split(":");
-    console.log([str2[0], str2[1], str1[1]]);
-
-    return [str2[0], str2[1], str1[1]];
-
-  }
-
+  return hour + ':' + minute + ' ' + meridian;
 }
 
 
 
-/* ======================*/
-/* _render times helper  */
-/* ======================*/
-function _renderTimes (times, type) {
 
-  var html ='';
-  if (type == 'wakeup')
-    html = "<h4 style='color:#999;'>You should fall asleep at one of the following times:</h4>";
-  else
-    html = "<h4 style='color:#999;'>You should wake up at one of the following times:</h4>";
+// Wakeup decorator 
+// substract time to get suggested sleep times
+function WakeTime (alarm) {
 
-      var count = 1;
-  for (var i in times) { 
-    console.log(times[i] ); 
-    var label = times[i][0] +" "+ times[i][1];
-    html +=  _radio_tag( "time"+count , times[i][2][0], times[i][2][1], times[i][2][2], label);
-    count++;
+  alarm.calculateTimes = function () {
+    console.log("time: " + alarm.time);
+    for( var i in alarm.amounts )  {
+      var ctime = new Date();
+      var amount = alarm.amounts[i]
+      ctime.setHours ( alarm.time.getHours() - amount['hours'] );
+      ctime.setMinutes ( alarm.time.getMinutes() - amount['minutes']);
+      alarm.calcTimes.push([ctime, amount]);
+      console.log("wakeTimes.caclulateTimes: " + ctime.toString());
+    }
   }
-  return html;
-}
-
-function _radio_tag (id, hour, minute, ampm,  label) {
-  return "<div class='radio'> <label> <input type='radio' name='radioReminder' id="+id+" hour="+hour+" minute=" + minute + " ampm=" + ampm +" >"+label+"</label> </div> ";
-}
-
-/* ========================*/
-/* _moduleHandler Module   */
-/* ========================*/
-function _modalHandler() { 
-  var DEFAULT_MODAL_TWO_DIALOG = $("#modal-dialog-2").clone();
-  var CREATE_BTN = $("#btn-create-new").clone();
-  var dirty_dialog_1 = "";
-  var input_time = '';
-
-
-
-  $('body').on('click',".btn-modal-1-next",function (e) {
-    e.preventDefault(); 
-    console.log("btn-1-next-clicked");
-    input_time = $("#timepicker").val();
-    type = $("#alarm_alarm_type option:selected").text();
-    hour = $(".bootstrap-timepicker-hour").val();
-    min  = $(".bootstrap-timepicker-minute").val();
-    ampm = $(".bootstrap-timepicker-meridian").val();  
-    repeatingDays =  $('input[name=dayCheckBox]:checked').map(function() { return $(this).val(); });
   
-
-    // store alarm input values
-    $("#alarm_wakeup_hour").val(hour);
-    $("#alarm_wakeup_minute").val(min);
-    $("#alarm_wakeup_ampm").val(ampm);
-    $("#alarm_wakeup_reminder_type").val($('input[name=optionsRadios]:checked').val());
-    $("#alarm_repeat_monday").val( $("#monday").prop('checked'));
-    $("#alarm_repeat_tuesday").val( $("#tuesday").prop('checked'));
-    $("#alarm_repeat_wednesday").val( $("#wednesday").prop('checked'));
-    $("#alarm_repeat_thursday").val( $("#thursday").prop('checked'));
-    $("#alarm_repeat_friday").val( $("#friday").prop('checked'));
-    $("#alarm_repeat_saturday").val( $("#saturday").prop('checked'));
-    $("#alarm_repeat_sunday").val( $("#sunday").prop('checked'));
-     $("#alarm_title").val($("#title-text-field").val());
-    $("#alarm_wakeup_ampm").val(ampm);
-
-    var alarm = new Alarm ( hour, min);
-    var times = alarm.times;
-    var html = _renderTimes(times, type);
-
-    console.log("renderTimes >>" + html);
-
-    $("#timelist-div").html(html);
-    dirty_dialog_1 = $("#modal").clone(true, true).html();     // get dialog1
-    //console.log(dirty_dialog_1);
-    $("#modal").html($(".modal-2").clone(true, true).html());
-    if (type=="wakeup"){
-      $(".modal-title").html("Bedtimes")
-    } else 
-      $(".modal-title").html("Wake-up times"); 
-
-
-    $(".btn-modal-2-back").on( "click", function (e) {
-      e.preventDefault();
-      $("#modal").html(dirty_dialog_1);
-      $("#timepicker").val(input_time);
-      //$("#btn-create-new").click();
-    });
-  });
-
-  $(".btn-modal-2-cancel").click( function (e) {
-    e.preventDefault();
-    location.reload(); 
-  });
-
-
-  $('body').on('click',"#btn_save",function (e) {
-    e.preventDefault();
-    $("#alarm_sleeping_hour").val(_hourStart());
-    $("#alarm_sleeping_minute").val(_minuteStart());
-    $("#alarm_sleeping_ampm").val(_ampmStart());
-    $("#alarm_form").trigger("submit.rails"); 
-   });
+  alarm.getTimesInHTML = function () {
+    
+    var header = "<h3 style='color:#f8512f;'>If you wake up at " + alarm.toStringTime() + "</h3>";
+      header+= "<h4 style='color:#f8512f;'>then you should fall asleep at one of the following times:</h4>";
+    var body = '';
+    var times = alarm.calcTimes;
+     for ( var i in times ) { body += _radioTag ( i, times[i][0], times[i][1]['label']); } 
+    return header+body;
+  }
 
 }
+
+function SleepTime (alarm) {
+  alarm.calculateTimes = function () {
+    console.log("time: " + alarm.time);
+    for( var i in alarm.amounts )  {
+      var ctime = new Date();
+      var amount = alarm.amounts[i]
+      ctime.setHours ( alarm.time.getHours() + amount['hours'] );
+      ctime.setMinutes ( alarm.time.getMinutes() + amount['minutes']);
+      alarm.calcTimes.push([ctime, amount]);
+      console.log("SleepTimes.caclulateTimes: " + ctime.toString());
+    }
+  }
+
+    alarm.getTimesInHTML = function () {
+  var header = "<h3 style='color:#167c80;'>If you sleep at " + alarm.toStringTime() + "</h3>";
+
+        header +="<h4 style='color:#167c80;'>You should wakeup at one of the following times:</h4>";
+    var body = '';
+    var times = alarm.calcTimes;
+     for ( var i in times ) { body += _radioTag ( i, times[i][0], times[i][1]['label']); } 
+    return header+body;
+  }
+}
+
+
+function _radioTag (id, dateObj, label) {
+  var hour = dateObj.getHours() % 12;
+  if ( hour == 0 ) hour = 12;
+  var minute = (dateObj.getMinutes()<10?'0':'') +  dateObj.getMinutes();
+  var meridian = 'AM';
+  if (dateObj.getHours() > 12 ) {
+    meridian = 'PM';
+  }
+  var label = hour + ':' + minute + ' ' + meridian +' (' + label + ')';
+      return "<div class='radio'> <label> <input type='radio' name='radioReminder' id="+id+" hour="+hour+" minute=" + minute + " ampm=" + meridian + "  onchange='showSaveBtn()'>"+label+" </label> </div> ";
+}
+
 
 function _hourEnd () { return  hour;}
 function _minuteEnd () {return  min;}

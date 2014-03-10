@@ -1,187 +1,123 @@
 <script type="text/javascript">
+  var timelistHTML = '';
   (function() {
-  $(document).ready(function(){
-    initializePage();
-  });
-}).call(this);
 
+    $(document).ready(function(){
+      initializePage();
+    });
+  }).call(this);
 
-function initializePage () {
+function initializePage () 
+{
   $('#second_slide').hide();
   $('#second_click').hide();
+  $('.timepicker').timepicker();
+  $('#timepicker').timepicker().on('hide.timepicker', function(e) { _timeUpdate()});
+
 };
+
 
 function nextSlide()
 {
+  _timeUpdate();
   $('#first_slide').hide();
-  
-  type = $('#alarm-options').val();
-
-  hour = $(".bootstrap-timepicker-hour").val();
-  min  = $(".bootstrap-timepicker-minute").val();
-  var alarm = new Alarm ( hour, min);
-  var times = alarm.times;
-  var html = _renderTimes(times, type);
-  $("#timelist-div").html(html);
-
+  $("#timelist-div").html(timelistHTML);
   $('#timelist-div').show();
   $('#second_slide').show();
   $('#first_click').hide();
   $('#second_click').show();
+  if ($('#alarm-options').val() == "sleep")
+    $('#second_click').attr("disabled","disabled");
 
 
 };
-
 
 
 function saveData()
 {
-    input_time = $("#timepicker").val();
-    type = $("#alarm_alarm_type option:selected").text();
-    hour = $(".bootstrap-timepicker-hour").val();
-    min  = $(".bootstrap-timepicker-minute").val();
-    ampm = $(".bootstrap-timepicker-meridian").val();  
-  
-
-    // Reverse time if sleep
-    if ($('#alarm-options').val() == "sleep")
-    {
-      $("#alarm_wakeup_hour").val(_hourStart());
-      $("#alarm_wakeup_minute").val(_minuteStart());
-      $("#alarm_wakeup_ampm").val(_ampmStart());
-      $("#alarm_sleeping_hour").val(hour);
-      $("#alarm_sleeping_minute").val(min);
-      $("#alarm_sleeping_ampm").val(ampm);
-    }
-    else
-    {
-      $("#alarm_wakeup_hour").val(hour);
-      $("#alarm_wakeup_minute").val(min);
-      $("#alarm_wakeup_ampm").val(ampm);
-      $("#alarm_sleeping_hour").val(_hourStart());
-      $("#alarm_sleeping_minute").val(_minuteStart());
-      $("#alarm_sleeping_ampm").val(_ampmStart());
-    }
+  input_time = $("#timepicker").val();
+  type = $("#alarm_alarm_type option:selected").text();
+  hour = $(".bootstrap-timepicker-hour").val();
+  min  = $(".bootstrap-timepicker-minute").val();
+  ampm = $(".bootstrap-timepicker-meridian").val();  
 
 
-    $("#alarm_repeat_monday").val( $("#monday").prop('checked'));
-    $("#alarm_repeat_tuesday").val( $("#tuesday").prop('checked'));
-    $("#alarm_repeat_wednesday").val( $("#wednesday").prop('checked'));
-    $("#alarm_repeat_thursday").val( $("#thursday").prop('checked'));
-    $("#alarm_repeat_friday").val( $("#friday").prop('checked'));
-    $("#alarm_repeat_saturday").val( $("#saturday").prop('checked'));
-    $("#alarm_repeat_sunday").val( $("#sunday").prop('checked'));
-    $("#alarm_form").trigger("submit.rails"); 
+  // Reverse time if sleep
+  if ($('#alarm-options').val() == "sleep")
+  {
+    var alarmMeridian = $('input[name=radioReminder]:checked', '#timelist-div').attr('ampm');
+    $("#alarm_wakeup_hour").val(_hourStart());
+    $("#alarm_wakeup_minute").val(_minuteStart());
+    $("#alarm_wakeup_ampm").val(alarmMeridian);
+    $("#alarm_sleeping_hour").val(hour);
+    $("#alarm_sleeping_minute").val(min);
+    $("#alarm_sleeping_ampm").val(ampm);
+  }
+  else
+  {
+    $("#alarm_wakeup_hour").val(hour);
+    $("#alarm_wakeup_minute").val(min);
+    $("#alarm_wakeup_ampm").val(ampm);
+    $("#alarm_sleeping_hour").val(_hourStart());
+    $("#alarm_sleeping_minute").val(_minuteStart());
+    $("#alarm_sleeping_ampm").val(_ampmStart());
+  }
+
+
+  $("#alarm_repeat_monday").val( $("#monday").prop('checked'));
+  $("#alarm_repeat_tuesday").val( $("#tuesday").prop('checked'));
+  $("#alarm_repeat_wednesday").val( $("#wednesday").prop('checked'));
+  $("#alarm_repeat_thursday").val( $("#thursday").prop('checked'));
+  $("#alarm_repeat_friday").val( $("#friday").prop('checked'));
+  $("#alarm_repeat_saturday").val( $("#saturday").prop('checked'));
+  $("#alarm_repeat_sunday").val( $("#sunday").prop('checked'));
+  $("#alarm_form").trigger("submit.rails"); 
 
 };
 
-
-/* ======================*/
-/* Alarm Module          */
-/* ======================*/
-function Alarm(hour, min) {
-  var timeA = new Date();
-  var timeB = [new Date(), new Date(), new Date()];
-  var amounts = [{ hours: 7, minutes: 55 }, { hours: 9, minutes: 25 }, { hours: 10, minutes: 55 }];
-  timeA.setHours(hour);
-  timeA.setMinutes(min);
-  var localFormat = [];
-
-  console.log("timeA: " + timeA.toString());
-  for ( var i in timeB) {
-    var alarmHour = timeA.getHours();
-    var alarmMin = timeA.getMinutes();
-    var amountHour = amounts[i]["hours"];
-    var amountMin = amounts[i]["minutes"];
-    var ampm = 'am';
-    timeB[i].setHours(hour - amountHour);
-    timeB[i].setMinutes(min - amountMin - 14);
-    if (timeB[i].getHours() > 12) 
-      ampm = 'pm';
-    console.log("timeB: " + timeB[i].toString() + " (" +amountHour+ ", " +amountMin+ ")");
-
-    localFormat.push([_timeFormatter(timeB[i].toLocaleTimeString()), amountHour + 'h' + amountMin + 'm', _toTimeArray(timeB[i].toLocaleTimeString())]);
-  }
-  this.times = localFormat;
-
-  // form time to [<hour>, <min>, <AM/PM>]]
-  function _timeFormatter (time) {
-    var str1 = time.split(' ');
-    var str2 = str1[0].split(":");
-    return str2[0] + ":" + str2[1] + ' ' +str1[1];
-  }
-
-  function _toTimeArray (time) {
-    var str1 = time.split(' ');
-    var str2 = str1[0].split(":");
-    console.log([str2[0], str2[1], str1[1]]);
-
-    return [str2[0], str2[1], str1[1]];
-
-  }
+function resetData() {
+  $('.timepicker').timepicker();
+  history.go(0);
 
 }
 
+function _timeUpdate () {
+  var t = new Time();
+  var a = new Alarm(t.time(), $('#alarm-options').val());
+  if ($('#alarm-options').val() == 'wakeup')  
+    UserWakeTime(a); 
+  else  
+    UserSleepTime(a); 
+  a.calculateTimes();
+  timelistHTML = a.getTimesInHTML();
 
-
-/* ======================*/
-/* _render times helper  */
-/* ======================*/
-function _renderTimes (times, type) {
-
-  var html ='';
-  if (type == 'wakeup')
-    html = "<h4 style='color:#999;'>You should fall asleep at one of the following times:</h4>";
-  else
-    html = "<h4 style='color:#999;'>You should wake up at one of the following times:</h4>";
-
-      var count = 1;
-  for (var i in times) { 
-    console.log(times[i] ); 
-    var label = times[i][0] +" "+ times[i][1];
-    html +=  _radio_tag( "time"+count , times[i][2][0], times[i][2][1], times[i][2][2], label);
-    count++;
-  }
-  return html;
 }
 
-function _radio_tag (id, hour, minute, ampm,  label) {
-  return "<div class='radio'> <label> <input type='radio' name='radioReminder' id="+id+" hour="+hour+" minute=" + minute + " ampm=" + ampm +" >"+label+"</label> </div> ";
+function showSaveBtn () {
+  $('#second_click').prop("disabled",null);
+
 }
-
-
-
-
-function _hourEnd () { return  hour;}
-function _minuteEnd () {return  min;}
-
-function _hourStart () { return $('input[name=radioReminder]:checked').attr("hour"); }
-function _minuteStart () { return $('input[name=radioReminder]:checked').attr("minute");}
-function _ampmStart () { return $('input[name=radioReminder]:checked').attr("ampm");}
-
-
-
 </script>
 
 
 
 
 <%= form_for :alarm, :html => {:id => "alarm_form"}, url: alarms_path do |f| %>
-     <%= f.hidden_field :repeat_monday%>
-    <%= f.hidden_field :repeat_tuesday%>
-    <%= f.hidden_field :repeat_wednesday%>
-    <%= f.hidden_field :repeat_thursday%>
-    <%= f.hidden_field :repeat_friday%>
-    <%= f.hidden_field :repeat_saturday%>
-    <%= f.hidden_field :repeat_sunday%>
+  <%= f.hidden_field :repeat_monday%>
+  <%= f.hidden_field :repeat_tuesday%>
+  <%= f.hidden_field :repeat_wednesday%>
+  <%= f.hidden_field :repeat_thursday%>
+  <%= f.hidden_field :repeat_friday%>
+  <%= f.hidden_field :repeat_saturday%>
+  <%= f.hidden_field :repeat_sunday%>
 
-    <%= f.hidden_field :wakeup_hour, :value => 00 %>
-    <%= f.hidden_field :wakeup_minute, :value => 00 %>
-    <%= f.hidden_field :wakeup_ampm, :value => 'AM' %>
-    <%= f.hidden_field :sleep_reminder_time %>
-    <%= f.hidden_field :sleeping_hour %>
-    <%= f.hidden_field :sleeping_minute %>
-    <%= f.hidden_field :sleeping_ampm %>
+  <%= f.hidden_field :wakeup_hour, :value => 00 %>
+  <%= f.hidden_field :wakeup_minute, :value => 00 %>
+  <%= f.hidden_field :wakeup_ampm, :value => 'AM' %>
+  <%= f.hidden_field :sleep_reminder_time %>
+  <%= f.hidden_field :sleeping_hour %>
+  <%= f.hidden_field :sleeping_minute %>
+  <%= f.hidden_field :sleeping_ampm %>
 
 
   <div class="modal-content">
@@ -245,10 +181,10 @@ function _ampmStart () { return $('input[name=radioReminder]:checked').attr("amp
 
 
 
-      
+
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+      <button type="button" class="btn btn-default" data-dismiss="modal" onclick="resetData()">Close</button>
       <button type="button" class="btn btn-default" id="second_click" onclick="saveData()">Save</button>
       <button type="button" id="first_click" class="btn btn-primary" onclick="nextSlide()">Next</button>
     </div>
@@ -260,15 +196,5 @@ function _ampmStart () { return $('input[name=radioReminder]:checked').attr("amp
 
 
 
-<script> 
-  $('.timepicker').timepicker().on('show.timepicker', function(e) {
-    e.preventDefault();
-    console.log('The time is ' + e.time.value);
-    var hour = $(".bootstrap-timepicker-hour").val();
-    console.log('The hour is ' + e.time.showInputs);
-    console.log('The minute is ' + e.time.minute);
-    console.log('The meridian is ' + e.time.meridian);
-  });
-</script>
 
 

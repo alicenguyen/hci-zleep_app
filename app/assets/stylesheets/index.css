@@ -1,14 +1,36 @@
+body
+{
+    background-color: #3498DB;
+}
+
+
+#goTop{
+    padding:5px;
+    position:fixed;
+    bottom: 20px;
+    right:10px;
+}
+
+.main_content
+{
+    margin-top: 100px;
+    background-color: white;
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+
 .alarm_box
 {
-    background-color: #2980B9;
+    background-color: #16A085;
     padding-top:6px;
     margin: 2px;
     margin-bottom: 5px;
 }
 
+
 .reminder_text
 {
-    font-size: 13px;
+    font-size: 10px;
 }
 .alarm_type_text
 {
@@ -34,14 +56,19 @@
     line-height: 1.1;
 }
 
+.alarm_type_background
+{
+        background-color: #2ECC71;
+    height: 120px;
+
+}
+
 .alarm_type
 {
-    background-color: #3498DB;
     font-size: 40px;
     text-align: center;
-    padding-top: 40px;
-    padding-left:18px;
-    height: 120px;
+    padding-top: 10px;
+    padding-bottom: 5px;
 
 }
 
@@ -66,7 +93,7 @@
 
 .dayofweeks
 {
-    font-size: 15px;
+    font-size: 11px;
 }
 
 .alarm_content
@@ -77,9 +104,7 @@
 
 }
 
-body {
-    padding-top: 90px;
-}
+
 
 .title
 {

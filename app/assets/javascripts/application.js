@@ -14,6 +14,7 @@
 //= require jquery_ujs
 //= require bootstrap
 //= require bootstrap-timepicker
+//= require scroll
 //= require jqueryplayer
 //= require jplayerplaylist
 //= require musicplaylist
@@ -22,4 +23,3 @@
 //= require myalarms
 //= require moment
 //= require clock
-

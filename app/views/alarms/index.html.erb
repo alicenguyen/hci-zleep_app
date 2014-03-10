@@ -1,4 +1,3 @@
-<meta name="viewport" content="width=device-width">
 <div class="row" >
   <div class="col-xs-4"> </div>
 
@@ -9,45 +8,61 @@
 
 </div>
  
-<div class="row" style="margin:15px;" >
-  <div class="col-xs-12" style="margin:0 auto;">
+<div class="row" >
+  <div class="col-xs-12">
     <div class="row alarm_list">
 
-      <div class="row">
-        <div class="col-md-4"></div>
-        <div class="col-md-4">
+        <div class="col-xs-12">
 
           <% if @alarms.present? %>
             <% @alarms.each do |alarm| %>
             
               <!-- alarm item -->
               <div class="row alarm_box">
-                <div class="col-xs-3 alarm_type">
-                  <%  if alarm.wakeup_reminder_type == 'call' %>
-                    <span class="glyphicon glyphicon-earphone"></span><br><span class="alarm_type_text">Phone</span>
-                  <% else %>
-                    <span class="glyphicon glyphicon-envelope"></span><br><span class="alarm_type_text">SMS</span>
-                  <% end %>
-                 </div>
+                <div class="col-xs-3 alarm_type_background">
+                  
+                  <div class="row">
+                    <div class="col-xs-12">
+                      <div class="alarm_type">
+                        <%  if alarm.wakeup_reminder_type == 'call' %>
+                          <span class="glyphicon glyphicon-earphone"></span><br><span class="alarm_type_text">Phone</span>
+                        <% else %>
+                          <span class="glyphicon glyphicon-envelope"></span><br><span class="alarm_type_text">SMS</span>
+                        <% end %>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="row">
+                    <div class="col-xs-12">
+                      <div class="onoffswitch">
+                      <input type="checkbox" name="onoffswitch" class="onoffswitch-checkbox" id="myonoffswitch<%= alarm.id %>" checked>
+                      <label class="onoffswitch-label" for="myonoffswitch<%= alarm.id %>">
+                          <div class="onoffswitch-inner"></div>
+                          <div class="onoffswitch-switch"></div>
+                      </label>
+                    </div>
+                    </div>
+                  </div>
+                </div>
 
                 <div class="col-xs-8 alarm_content">
                   <div class="alarm_title"> <%= alarm.title %> </div>
                   <div class="alarm_time"> <%= alarm.wakeup_hour%>:<%= alarm.wakeup_minute %> <%= alarm.wakeup_ampm  %> </div>
                   <div class="dayofweeks">
                     <span class="alarm_day <%= (alarm.repeat_sunday == '1')? "day_active"  :  "day_non_active"%>">SUN</span>
-                    <span class="alarm_day <%= (alarm.repeat_monday == '1')? "day_active"  :  "day_non_active"%>">MON</span>&nbsp;
-                    <span class="alarm_day <%= (alarm.repeat_tuesday == '1')? "day_active"  :  "day_non_active"%>">TUES</span>&nbsp;
-                    <span class="alarm_day <%= (alarm.repeat_wednesday == '1')? "day_active"  :  "day_non_active"%>">WED</span>&nbsp;
-                    <span class="alarm_day <%= (alarm.repeat_thursday == '1')? "day_active"  :  "day_non_active"%>">THURS</span>&nbsp;
-                    <span class="alarm_day <%= (alarm.repeat_friday == '1')? "day_active"  :  "day_non_active"%>">FRI</span>&nbsp;
+                    <span class="alarm_day <%= (alarm.repeat_monday == '1')? "day_active"  :  "day_non_active"%>">MON</span>
+                    <span class="alarm_day <%= (alarm.repeat_tuesday == '1')? "day_active"  :  "day_non_active"%>">TUE</span>
+                    <span class="alarm_day <%= (alarm.repeat_wednesday == '1')? "day_active"  :  "day_non_active"%>">WED</span>
+                    <span class="alarm_day <%= (alarm.repeat_thursday == '1')? "day_active"  :  "day_non_active"%>">THU</span>
+                    <span class="alarm_day <%= (alarm.repeat_friday == '1')? "day_active"  :  "day_non_active"%>">FRI</span>
                     <span class="alarm_day <%= (alarm.repeat_saturday == '1')? "day_active"  :  "day_non_active"%>">SAT</span>
                   </div><br>
 
                   <% if alarm.sleep_reminder_time != '0' %>
                      <%  if alarm.sleep_reminder_type == 'call' %>
-                      <span class="glyphicon glyphicon-earphone"></span><span class="reminder_text"> Reminder : <%= alarm.sleep_reminder_time %> <%=alarm.sleep_reminder_time_unit %> before</span>
+                      <span class="glyphicon glyphicon-earphone"></span><span class="reminder_text"> <%= alarm.sleep_reminder_time %> <%=alarm.sleep_reminder_time_unit %> before</span>
                     <% else %>
-                      <span class="glyphicon glyphicon-envelope"></span><span class="reminder_text"> Reminder : <%= alarm.sleep_reminder_time %> <%=alarm.sleep_reminder_time_unit %> before</span>
+                      <span class="glyphicon glyphicon-envelope"></span><span class="reminder_text"> <%= alarm.sleep_reminder_time %> <%=alarm.sleep_reminder_time_unit %> before</span>
                     <% end %>
                   <% else %>
                     <span class="reminder_text">No reminder</span>
@@ -66,8 +81,6 @@
             <h4>You have no alarm yet. Create + above to create an alarm</h4>
           <% end %>  
         </div>
-        <div class="col-md-4"></div> 		
-      </div>  
     </div>
   </div>
 </div>
@@ -108,9 +121,7 @@
             </div>
             <div class="modal-body"><div class="te"></div></div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
-            </div>
+                           </div>
         </div>
         <!-- /.modal-content -->
     </div>

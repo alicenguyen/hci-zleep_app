@@ -1,12 +1,4 @@
-require 
-.alarm_list
-{
-   border-style:solid;
-   border-color:black;
-   border-width: 1px;
-   padding: 10px;
-   margin: 10px;
-}
+
 
 .day_active
 {
@@ -28,9 +20,8 @@ color:  #999;
 .alarm_day
 {
 
-  font-size: 12px;
+  font-size: 10px;
   text-align: center;
-  text-transform: lowercase;
 }
 
 .alarm_description
@@ -240,5 +231,4 @@ background-color: inherit;
 
 body > div.container.main {
 margin: auto 0;
-display: inline;
 }

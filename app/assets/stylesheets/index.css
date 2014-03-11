@@ -1,126 +1,125 @@
 body
 {
-    background-color: #3498DB;
+  background-color: #f3f3f3;
 }
 
 
 #goTop{
-    padding:5px;
-    position:fixed;
-    bottom: 20px;
-    right:10px;
+  padding:5px;
+  position:fixed;
+  bottom: 20px;
+  right:10px;
 }
 
 .main_content
 {
-    margin-top: 100px;
-    background-color: white;
-    padding-top: 50px;
-    padding-bottom: 50px;
+  height: #e6e6e4;
+  background-color: #fbfbfb;
+  padding-top: 50px;
+  padding-bottom: 50px;
 }
 
 .alarm_box
 {
-    background-color: #16A085;
-    padding-top:6px;
-    margin: 2px;
-    margin-bottom: 5px;
+  background-color: #16A085;
+  padding-top:6px;
+  margin: 2px;
+  margin-bottom: 5px;
 }
 
 
 .reminder_text
 {
-    font-size: 10px;
+  font-size: 10px;
 }
 .alarm_type_text
 {
-    font-size: 16px;
+  font-size: 16px;
 
 }
 
 .small_font
 {
-    font-size: 8px;
+  font-size: 8px;
 }
 
 .less_pad
 {
-    padding-top: 10px;
-    padding-bottom: 10px
+  padding-top: 10px;
+  padding-bottom: 10px
 }
 
 .carosel_text
 {
-    color: #000000;
-    font-weight: 800;
-    line-height: 1.1;
+  color: white;
+  font-weight: 800;
+  line-height: 1.1;
 }
 
 .alarm_type_background
 {
-        background-color: #2ECC71;
-    height: 120px;
+  background-color: #2ECC71;
+  height: 120px;
 
 }
 
 .alarm_type
 {
-    font-size: 40px;
-    text-align: center;
-    padding-top: 10px;
-    padding-bottom: 5px;
+  font-size: 40px;
+  text-align: center;
+  padding-top: 10px;
+  padding-bottom: 5px;
 
 }
 
 .alarm_time
 {
-    font-size: 25px;
-    font-family: inherit;
-    font-weight: 800;
-    line-height: 1.1;
-    color: #C0392B;
+  font-size: 25px;
+  font-family: inherit;
+  font-weight: 800;
+  line-height: 1.1;
+  color: #C0392B;
 }
 
 .alarm_title
 {
-    font-size: 25px;
-    font-family: inherit;
-    font-weight: 800;
-    line-height: 1.1;
-    color: inherit;
-    padding-bottom: 2px;
+  font-size: 25px;
+  font-family: inherit;
+  font-weight: 800;
+  line-height: 1.1;
+  color: inherit;
+  padding-bottom: 2px;
 }
 
 .dayofweeks
 {
-    font-size: 11px;
+  font-size: 11px;
 }
 
 .alarm_content
 {
-    background-color:  #ECF0F1;
-    padding: 7px;
-    height: 120px;
+  background-color:  #ECF0F1;
+  padding: 7px;
+  height: 120px;
 
 }
-
 
 
 .title
 {
-    margin-top:100px;
-    margin-bottom:0px;
-    font-size: 40px;
-    font-weight: normal;
-    font-style: normal;
-    padding-bottom: 0px;
-    background-color: #000000;
-    color: #FFFFFF;
+  margin-top:100px;
+  margin-bottom:0px;
+  font-size: 40px;
+  font-weight: normal;
+  font-style: normal;
+  padding-bottom: 0px;
+  background-color: #000000;
+  color: #FFFFFF;
 }
 
 .container.myAlarms {
-    max-width: 870px;
-    min-width:410px;
+  max-width: 870px;
+  min-width:410px;
 }
 
 
@@ -136,5 +135,79 @@ body
 #clock .digits div.zero .d5,
 #clock .digits div.zero .d6,
 #clock .digits div.zero .d7{
-    opacity:1;
+  opacity:1;
+}
+
+/* title */
+
+#top > div > div.navbar-header > a {
+  color:#f7472a
+
+}
+
+/* carousel */
+.login_center {
+margin-top:75px;
+height: 500px;
+margin-bottom: 60px;
+}
+
+
+a:visted  a:hover {
+background-color:none;
+}
+
+.navbar{
+  height:20px;
+}
+
+.login-label {
+  font-family:'Bariol-Regular';
+  font-size: 28pt;
+  color: #6e6e6e;
+  margin-bottom:45px;
+
+}
+
+.btn-login {
+  background-color:#d9d9d9;
+  color:white;
+  float:right;
+}
+
+.remember_me_label {
+  color:#8c8c8c;
+  font-weight: 500;
+}
+
+#user_email {
+  max-width:300px;
+}
+
+#user_password {
+  max-width: 300px;
+}
+
+.login_section {  
+  width:300px;
+  margin-left:25px;
+}
+
+
+/* pretty wave */
+.c { overflow: hidden; margin: 0; width: 100%; height: 55%; }
+.c { background: #fbfbfb; }
+
+
+
+#canvasesdiv {
+position: absolute;
+left:0px;
+top:0px;
+}
+
+.canvas-layer {
+   position:absolute;
+    bottom:0px;
+    right:0px;
 }

@@ -4,5 +4,13 @@
   }
   src: asset-url('Bariol-Bold.otf', font);
   src: asset-url('Bariol-Bold.otf', font) format('opentype');
+}
 
+
+@font-face {
+  font:{
+      family: 'Bariol-Regular';
+  }
+  src: asset-url('Bariol_Regular.otf', font);
+  src: asset-url('Bariol_Regular.otf', font) format('opentype');
 }

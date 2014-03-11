@@ -3,12 +3,12 @@ $(document).ready(function() {
         if($(this).scrollTop() > 100){
             $('#goTop').stop().animate({
                 bottom: '20px'    
-                }, 500);
+                }, 1500);
         }
         else{
             $('#goTop').stop().animate({
                bottom: '20px'    
-            }, 500);
+            }, 1500);
         }
     });
     $('#goTop').click(function() {
@@ -17,7 +17,7 @@ $(document).ready(function() {
         }, 500, function() {
            $('#goTop').stop().animate({
                bottom: '20px'    
-           }, 500);
+           }, 1500);
         });
     });
 });    

@@ -13,8 +13,7 @@ def call_user(user_id, message)
 	  :to => '+16105557069',
 	  :body => message
 	)
-  end
-
+ end
 
 
 

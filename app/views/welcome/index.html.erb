@@ -6,7 +6,7 @@
     <div class="jumbotron less_pad">
       <%if @alarms.first.present?%>
         <h3>Next alarm at: <span
-            style="color:#428bca;"><%= @alarms.first.wakeup_hour %> : <%= @alarms.first.wakeup_minute %> am</span>.</h4>
+            style="color:#428bca;"><%= @alarms.first.wakeup_hour %> : <%= @alarms.first.wakeup_minute %> <%= @alarms.first.wakeup_ampm %></span>.</h4>
 
       <%else %>
         <h2>You have no alarm.</h2>

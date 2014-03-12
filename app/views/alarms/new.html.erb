@@ -123,12 +123,12 @@ function showSaveBtn () {
   <div class="modal-content">
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-      <h4 class="modal-title">Add</h4>
-
+      <h4 class="modal-title">New alarm</h4>
     </div>
     <div class="modal-body">
 
-      <div class="first_slide" id="first_slide">
+      <!-- slide one -->
+      <div class="first_slide " id="first_slide">
         <div class="row">
           <div class="col-xs-12 col-time-input">
             <form class="form-inline" role="form">
@@ -142,13 +142,11 @@ function showSaveBtn () {
             </form>
           </div>
         </div>
-        <div class="row"> <div class="col-xs-6 form-inline"> <span>title:</span>     <%= f.text_field :title %></div> </div>
-
+        <div class="row"> <div class="col-xs-6 form-inline"> <span>title:</span> <%= f.text_field :title %></div> </div>
         <div class="row" style="margin-top:25px">
           <div class="col-xs-12 inline">
             <span>Alarm type: </span> <%= f.select(:wakeup_reminder_type, ['call','sms'])%> </div>
         </div>
-
         <div class="row"> 
           <div id="col-repeat-input" class="col-xs-12">
             <div id="checkbox-list-days">
@@ -164,23 +162,18 @@ function showSaveBtn () {
         </div>
       </div>
 
-
-      <div class="second_slide" id="second_slide">
+      <!-- slide two -->
+      <div class="second_slide " id="second_slide">
         <div id="timelist-div"></div>
         <div class="row">
           <div class=" col-xs-12">
             <h4 style="color:#999">Reminder</h4>
-
             <%= f.select(:sleep_reminder_type, ['call', 'sms', 'none'])%>
             <%= f.select( :sleep_reminder_time, options_for_select((0..60).step(5))) %>
             <%= f.select(:sleep_reminder_time_unit, ['minutes', 'hours'])%>
           </div>
         </div>
       </div>
-
-
-
-
 
     </div>
     <div class="modal-footer">

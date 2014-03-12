@@ -10,6 +10,7 @@
  *
  *= require_self
  *= require_tree .
+ *= require index
  *= require jplayer.blue.monday
  */
 

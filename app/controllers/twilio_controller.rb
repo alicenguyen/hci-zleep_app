@@ -9,7 +9,6 @@ class TwilioController < ApplicationController
 	def validate
 
 		    render 'validate.xml.erb', :content_type => 'text/xml'
-
 	end
 
 	def scheduler
@@ -34,7 +33,7 @@ class TwilioController < ApplicationController
 				if alarm.user.phone_number.blank?
 					puts " #{alarm.user.first_name} #{alarm.user.last_name} doesn't have phone number"
 				else
-					if alarm.is_dismiss
+					if alarm.is_dismiss == "on"
 						user_phone = alarm.user.phone_number
 
 						up_hour	= alarm.wakeup_hour.to_f
@@ -83,16 +82,6 @@ class TwilioController < ApplicationController
 
 						if (( up_hour == current_hour) && (up_min == current_minute) && (up_ampm == current_ampm) && correct_date)
 							
-
-							
-
-
-
-
-
-
-
-
 							url = "http://twimlets.com/message?Message%5B0%5D=This%20is%20a%20wake%20up%20call%20from%20zleep.%20The%20current%20time%20is%20#{alarm.wakeup_hour}%3A#{alarm.wakeup_minute}%20#{alarm.wakeup_ampm}.%20Please%20wake%20up%20you%20have%20a%20#{URI.escape(alarm.title)}%20coming%20up.%20Have%20a%20great%20day.&"
 								puts "WAKEUP"
 

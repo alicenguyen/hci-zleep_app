@@ -16,20 +16,22 @@
     </div>
 
     <div class="col-xs-12 col-time-input">
-      <form class="form-inline timeForm" role="form">
+      <form class="form-inline timeForm">
         <div style="display:inline;">
           <span> I want to</span> <select id="alarm-options"> <option>wakeup</option> <option>sleep</option> </select></div>
-        <div class='input-append bootstrap-timepicker' style='display: inline;'>
+        <div class='bootstrap-timepicker' style='display: inline;'>
           <span> at</span>
           <input id="timepicker"class='dateselect-time input-small timepicker' type='text'>
-          <span class='add-on'><i class='icon-time glyphicon glyphicon-time'></i></span></input>
         </div>
       </form>
+
+      <!-- toggle reminders to swap then reveal content-->
       <div class="reminder1 remind" hidden>
-        morning alarm: <%= f.select(:wakeup_reminder_type, ['call', 'sms', 'none'])%>
+        alarm type: <%= f.select(:wakeup_reminder_type, ['call', 'sms', 'none'])%>
     </div>
     <div class="reminder2 remind" hidden>
-      reminder: <%=  f.select(:sleep_reminder_type, ['call', 'sms', 'none'])%> &nbsp;&nbsp;<%= f.select( :sleep_reminder_time, options_for_select((0..60).step(5))) %><%= f.select(:sleep_reminder_time_unit, ['minutes', 'hours'])%>&nbsp; prior
+      alarm type: <%=  f.select(:sleep_reminder_type, ['call', 'sms', 'none'])%> &nbsp;&nbsp; <br>
+      before: <%= f.select( :sleep_reminder_time, options_for_select((0..60).step(5))) %><%= f.select(:sleep_reminder_time_unit, ['minutes', 'hours'])%>&nbsp; 
     </div>
 
 
@@ -49,40 +51,42 @@
     </div>
   </div>
 
+  <!-- only display when users give sleeptime -->
   <div class="col-xs-12 timelist" hidden>
     <div class="reminder1 remind" hidden>
-      reminder: <%=  f.select(:sleep_reminder_type, ['call', 'sms', 'none'])%> &nbsp;&nbsp;<%= f.select( :sleep_reminder_time, options_for_select((0..60).step(5))) %><%= f.select(:sleep_reminder_time_unit, ['minutes', 'hours'])%>&nbsp; prior
+      alarm type: <%=  f.select(:sleep_reminder_type, ['call', 'sms', 'none'])%> &nbsp;&nbsp;<br>
+      before:     <%= f.select( :sleep_reminder_time, options_for_select((0..60).step(5))) %><%= f.select(:sleep_reminder_time_unit, ['minutes', 'hours'])%>&nbsp; 
     </div>
-
+  </div>
+  <div class="col-xs-12 timelist" hidden>  
+    repeat every: <br> 
+    <div id="checkbox-list-days">
+      <label class="checkbox-inline"> <%= f.check_box :repeat_sunday %> sun</label>
+      <label class="checkbox-inline"> <%= f.check_box :repeat_monday %> Mon</label>
+      <label class="checkbox-inline"> <%= f.check_box :repeat_tuesday %> Tue</label>
+      <label class="checkbox-inline"> <%= f.check_box :repeat_wednesday %> Wed</label>
+      <label class="checkbox-inline"> <%= f.check_box :repeat_thursday %> Thur</label>
+      <label class="checkbox-inline"> <%= f.check_box :repeat_friday %> Fri</label>
+      <label class="checkbox-inline"> <%= f.check_box :repeat_saturday %> Sat</label>
+    </div>
   </div>
   <div class="col-xs-12 form-inline timelist" hidden> <span>title:</span> <%= f.text_field :title %></div>
-  <div class="col-xs-12 timelist" hidden>
-    <button type="button" class="btn btn-default" onclick="saveData()">Save</button>
-  </div>
+  <div class="col-xs-12 timelist" hidden> <button type="button" class="btn btn-default" onclick="saveData()">Save</button></div>
 </div>
 <% end %>
 
 <script type="text/javascript">
-  /*  $(".timeItem").click(function() {
-      $(this).attr("style", "color: #28e;");   
-      console.log("a time is clicked"); 
-      });*/
 
+  $('#timepicker').timepicker();
+  $('#timepicker').timepicker().on('hide.timepicker', function(e) {
+    e.preventDefault();
+    console.log('The time is ' + e.time.value);
+    console.log('The hour is ' + e.time.hour);
+    console.log('The minute is ' + e.time.minute);
+    console.log('The meridian is ' + e.time.meridian);
+    _showTimes();
 
-
-
-$('#timepicker').timepicker();
-$('#timepicker').timepicker().on('hide.timepicker', function(e) {
-  e.preventDefault();
-  console.log('The time is ' + e.time.value);
-  console.log('The hour is ' + e.time.hour);
-  console.log('The minute is ' + e.time.minute);
-  console.log('The meridian is ' + e.time.meridian);
-  _timeUpdate();
-
-});
-
-
+  });
 
 $('.timeForm').submit(function(e) {
   e.preventDefault();
@@ -91,7 +95,7 @@ $('.timeForm').submit(function(e) {
 
 
 
-function _timeUpdate () {
+function _showTimes () {
   if( $("#timepicker").val == '') return;
   var t = new TimePicker();
   var a = new Alarm(t.time(), $('#alarm-options').val());
@@ -135,22 +139,9 @@ function saveData()
     $("#alarm_sleeping_minute").val(_minuteStart());
     $("#alarm_sleeping_ampm").val(_ampmStart());
   }
-
-
-  $("#alarm_repeat_monday").val( $("#monday").prop('checked'));
-  $("#alarm_repeat_tuesday").val( $("#tuesday").prop('checked'));
-  $("#alarm_repeat_wednesday").val( $("#wednesday").prop('checked'));
-  $("#alarm_repeat_thursday").val( $("#thursday").prop('checked'));
-  $("#alarm_repeat_friday").val( $("#friday").prop('checked'));
-  $("#alarm_repeat_saturday").val( $("#saturday").prop('checked'));
-  $("#alarm_repeat_sunday").val( $("#sunday").prop('checked'));
   $("#alarm_form").trigger("submit.rails"); 
 
 };
-
-
-
-
 </script>
 <script src="http://s1.cdn.ryanboylett.co.uk/php.js/functions-min/datetime/date.min.js"></script>
 

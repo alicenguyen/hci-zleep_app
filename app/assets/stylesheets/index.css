@@ -1,6 +1,6 @@
 body
 {
-  background-color: #f3f3f3;
+  background-color: #f9f9f9;
 }
 
 
@@ -13,15 +13,18 @@ body
 
 .main_content
 {
-  height: #e6e6e4;
-  background-color: #fbfbfb;
+
+  background-color: #f9f9f9;
   padding-top: 50px;
   padding-bottom: 50px;
 }
 
 .alarm_box
 {
-  background-color: #16A085;
+
+border-radius: 5px;
+border: 1px solid;
+border-color: #ccc; 
   padding-top:6px;
   margin: 2px;
   margin-bottom: 5px;
@@ -58,7 +61,7 @@ body
 
 .alarm_type_background
 {
-  background-color: #2ECC71;
+
   height: 120px;
 
 }
@@ -98,7 +101,7 @@ body
 
 .alarm_content
 {
-  background-color:  #ECF0F1;
+  
   padding: 7px;
   height: 120px;
 
@@ -140,7 +143,7 @@ body
 
 /* title */
 #top > div > div.navbar-header > a {
-  color:#fe3529;
+  color:#f26149;
 
 }
 

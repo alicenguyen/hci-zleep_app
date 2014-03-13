@@ -1,128 +1,136 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
+  <head>
 
     <title>Zleep</title>
-     <%= csrf_meta_tags %>
-       <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-        <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
-       
-        
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-	
-        <script>
-          (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-          (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-          m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-          })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
-
-	  ga('create', 'UA-48821022-1', 'zleep.herokuapp.com');
-          ga('send', 'pageview');
-
-        </script>
-    
-    </head>
-    <body>
-        <div class="navbar navbar-default navbar-fixed-top" id="top">
-          <div class="container">
-            <div class="navbar-header">
-                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand title_top" href="/"><b>zleep</b></a>
-                </div>
-                <div class="navbar-collapse collapse">
-                    <% if user_signed_in? %>
-
-                        <ul class="nav navbar-nav">
-                            <li class="nav-item <%= 'active' if current_page?(welcome_index_path) %>"><a href="/welcome/index"><span class=" glyphicon
-                                        glyphicon-home"></span>&nbsp;&nbsp;home</a></li>
-                            <li class="nav-item <%= 'active' if current_page?(alarms_path) %>"><a href="/alarms/"><span class=" glyphicon
-                                        glyphicon-time"></span>&nbsp;&nbsp;alarms</a></li>
-                            <li class="nav-item <%= 'active' if current_page?(musics_index_path) %>"><a href="/musics/index"><span class="glyphicon
-                                        glyphicon-music"></span>&nbsp;&nbsp;music</a></li>
-                            <li class="nav-item <%= 'active' if current_page?(users_stats_path) %>"><a href="/users/stats"><span class="glyphicon
-                                        glyphicon-heart"></span>&nbsp;&nbsp;stats</a></li>
-                            <li class="nav-item <%= 'active' if current_page?(alarms_sleep101_path) %>"><a href="/alarms/sleep101"><span class="glyphicon
-                                        glyphicon-book"></span>&nbsp;&nbsp;what is zleep?</a></li>                                        
-                        </ul>
-
-                    <% end %>
-                    <% if user_signed_in? %>
-
-                        <ul class="nav navbar-nav navbar-right">
-                            <li class="dropdown">
-                                <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download"><span class="glyphicon glyphicon-user"> </span>&nbsp;
-                                <% if current_user.first_name.nil? || current_user.first_name == 0 || current_user.first_name == "" %>
-                                    User
-                                <% else %>
-                                    <%= current_user.first_name %>
-                                <% end %>
-                                <span class="caret"></span></a>
-                                <ul class="dropdown-menu" aria-labelledby="download">
-                                    <li><a href="/users/edit">ACCOUNT SETTINGS</a></li>
-                                    <li><a href="/alarms/help">HELP</a></li>
+    <%= csrf_meta_tags %>
+    <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
+    <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
 
 
-                                    <li class="divider"></li>
-                                    <li><%= link_to('SIGN OUT', destroy_user_session_path, :method => 'delete') %></li>
-                                </ul>
-                            </li>
-                        </ul>
-                    <% else %>
-                        <ul class="nav navbar-nav navbar-right">
-                            <li class="dropdown">
-                                <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download"><span class="glyphicon glyphicon-user"> </span>Welcome<span class="caret"></span></a>
-                                <ul class="dropdown-menu" aria-labelledby="download">
-                                    <li><a href="/users/sign_in">Sign In</a></li>
-                                    <li><a href="/users/sign_up">Create an Account</a></li>
-                                    <li><a href="#" data-toggle="modal" data-target="#whatis">What is Zleep?</a></li>
-                                </ul>
-                            </li>       
-                        </ul>
-                    <% end %>
-                </div>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <script>
+      (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+ga('create', 'UA-48821022-1', 'zleep.herokuapp.com');
+ga('send', 'pageview');
+
+    </script>
+
+  </head>
+  <body>
+    <div class="navbar navbar-default navbar-fixed-top" id="top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand title_top" href="/"><b>zleep</b></a>
+        </div>
+        <div class="navbar-collapse collapse">
+          <% if user_signed_in? %>
+
+            <ul class="nav navbar-nav">
+              <li class="nav-item <%= 'active' if current_page?(welcome_index_path) %>"><a href="/welcome/index"><span class=" glyphicon
+                    glyphicon-home"></span>&nbsp;&nbsp;home</a></li>
+
+              <li class="nav-item dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown">times <b class="caret"></b></a>
+                <ul class="dropdown-menu">
+                  <li class="nav-item <%= 'active' if current_page?(new_alarm_path) %>"><a href="/alarms/new"><span class=" glyphicon
+                        glyphicon-time"></span>&nbsp;&nbsp;calculator</a></li>
+                  <li class="nav-item <%= 'active' if current_page?(alarms_path) %>"><a href="/alarms/"><span class=" glyphicon
+                        glyphicon-time"></span>&nbsp;&nbsp;alarms</a></li>
+                </ul>
+              </li>
+              <li class="nav-item <%= 'active' if current_page?(musics_index_path) %>"><a href="/musics/index"><span class="glyphicon
+                    glyphicon-music"></span>&nbsp;&nbsp;music</a></li>
+              <li class="nav-item <%= 'active' if current_page?(users_stats_path) %>"><a href="/users/stats"><span class="glyphicon
+                    glyphicon-heart"></span>&nbsp;&nbsp;stats</a></li>
+              <li class="nav-item <%= 'active' if current_page?(alarms_sleep101_path) %>"><a href="/alarms/sleep101"><span class="glyphicon
+                    glyphicon-book"></span>&nbsp;&nbsp;what is zleep?</a></li>                                        
+            </ul>
+
+          <% end %>
+          <% if user_signed_in? %>
+
+            <ul class="nav navbar-nav navbar-right">
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download"><span class="glyphicon glyphicon-user"> </span>&nbsp;
+                  <% if current_user.first_name.nil? || current_user.first_name == 0 || current_user.first_name == "" %>
+                    User
+                  <% else %>
+                    <%= current_user.first_name %>
+                  <% end %>
+                  <span class="caret"></span></a>
+                <ul class="dropdown-menu" aria-labelledby="download">
+                  <li><a href="/users/edit">ACCOUNT SETTINGS</a></li>
+                  <li><a href="/alarms/help">HELP</a></li>
+
+
+                  <li class="divider"></li>
+                  <li><%= link_to('SIGN OUT', destroy_user_session_path, :method => 'delete') %></li>
+                </ul>
+              </li>
+            </ul>
+          <% else %>
+            <ul class="nav navbar-nav navbar-right">
+              <li class="dropdown">
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" id="download"><span class="glyphicon glyphicon-user"> </span>Welcome<span class="caret"></span></a>
+                <ul class="dropdown-menu" aria-labelledby="download">
+                  <li><a href="/users/sign_in">Sign In</a></li>
+                  <li><a href="/users/sign_up">Create an Account</a></li>
+                  <li><a href="#" data-toggle="modal" data-target="#whatis">What is Zleep?</a></li>
+                </ul>
+              </li>       
+            </ul>
+          <% end %>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div class="container main_content">
+      <%= yield %>
+    </div>
+    <div class="modal fade" id="whatis" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title" id="myModalLabel">What is Zleep ? </h4>
+          </div>
+          <div class="modal-body">
+            <h4>Waking up feeling tired?</h4>
+            By using Zleep, our sciencetist will calculate the hours that you should go to sleep and this way you will wake up feeling more refresh.<br><br>
+            <p>
+              Typical sleep sessions occur in fixed-length REM cycles, and
+              waking up amidst such a cycle or not getting enough cycles each
+              night can leave you feeling exhausted all day.</p> <p>Zleep takes the guess-work out of feeling rested, and puts you back in charge of your life by telling you the best time to go to sleep and wake up based on cutting-edge sleep science. Zleep also provides a relaxing music
+              timer to help you fall asleep on those anxious nights that often torment you.
+              Choose an option from the menu on the top-right to get started!</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
           </div>
         </div>
-
-  
-
-        <div class="container main_content">
-            <%= yield %>
-        </div>
-        <div class="modal fade" id="whatis" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-          <div class="modal-dialog">
-            <div class="modal-content">
-              <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">What is Zleep ? </h4>
-              </div>
-              <div class="modal-body">
-                <h4>Waking up feeling tired?</h4>
-                By using Zleep, our sciencetist will calculate the hours that you should go to sleep and this way you will wake up feeling more refresh.<br><br>
-                    <p>
-                    Typical sleep sessions occur in fixed-length REM cycles, and
-                    waking up amidst such a cycle or not getting enough cycles each
-                    night can leave you feeling exhausted all day.</p> <p>Zleep takes the guess-work out of feeling rested, and puts you back in charge of your life by telling you the best time to go to sleep and wake up based on cutting-edge sleep science. Zleep also provides a relaxing music
-                    timer to help you fall asleep on those anxious nights that often torment you.
-                    Choose an option from the menu on the top-right to get started!</p>
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              </div>
-            </div>
-          </div>
-        </div>
+      </div>
+    </div>
 
 
-        <img src="/assets/cycle-hover.png" id="goTop">
+    <img src="/assets/cycle-hover.png" id="goTop">
 
 
-        <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
-    </body>
+    <script src="https://code.jquery.com/jquery-1.10.2.min.js"></script>
+  </body>
 </html>

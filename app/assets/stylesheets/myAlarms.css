@@ -234,8 +234,6 @@ body > div.container.main {
 margin: auto 0;
 }
 
-
-
 .modal-footer {
 color:white;
 margin-top:0;
@@ -253,4 +251,20 @@ font-family: inherit;
 font-weight: 500;
 line-height: 1.1;
 margin-top: 20px;
+}
+
+
+
+div.create-alarm-panel {
+height: 500px;
+border-radius: 5px;
+border: 1px solid;
+border-color: #ccc;
+padding:0;
+margin:auto 0;
+
+}
+
+.remind {
+margin-top:15px;
 }

@@ -1,0 +1,39 @@
+
+<div class="time_dashboard row ">
+  <div id="currentTime_header" class="col-xs-12 time-tracker">
+    <h1>
+      <font>12:00 pm</font>
+      <small>WED 30 January 2014</small>
+    </h1> 
+    <hr>
+  </div>  
+</div>
+</div>
+</div>
+
+
+
+
+
+
+
+
+<script src="http://s1.cdn.ryanboylett.co.uk/php.js/functions-min/datetime/date.min.js"></script>
+<script type="text/javascript" charset="utf-8">
+  var Dashboard =
+{
+  isTiming: true,
+  current: 0,
+  init: function()
+  {
+    Dashboard.setDate();
+  },
+  setDate: function()
+  {
+    $('.time-tracker h1 > font').html(date("g:i a"));
+    $('.time-tracker h1 > small').html(date("D").toLowerCase()+ "&nbsp;"  + date("j F Y"));
+  },
+};
+
+$(Dashboard.init); 
+</script>

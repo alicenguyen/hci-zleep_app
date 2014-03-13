@@ -2,11 +2,20 @@
  * @author Alice Nguyen
  *
  */
-function Time () {
+(function() {
+
+  $(document).ready(function(){
+  });
+}).call(this);
+
+
+function TimePicker () {
+
   this.time = function () {
-    var h_input = parseInt( $(".bootstrap-timepicker-hour").val() );
-    var min = parseInt( $(".bootstrap-timepicker-minute").val() );
-    var ampm_input = $(".bootstrap-timepicker-meridian").val();  
+    var t = $('#timepicker').val();
+    var h_input = _getHour(t);
+    var min = _getMinute(t);
+    var ampm_input = _getMeridian(t); 
     var hour = _convertToMilitaryHour (ampm_input, h_input, min);
 
 
@@ -18,14 +27,30 @@ function Time () {
     return t;
   };
 
+  /* the timepicker feature somehow can't return indivual values for hours and minutes*/
+  var _getMeridian = function (time) {
+    var tm = time.split(" ");
+    return tm[1];
+  }
+
+  var _getHour = function (time) {
+    var tmp = time.split(" ");
+    return  parseInt(tmp[0].split(":")[0]);
+  }
+  var _getMinute = function (time) {
+    var tmp = time.split(" ");
+    return  parseInt(tmp[0].split(":")[1]);
+  }
+
+
   var _convertToMilitaryHour = function ( ampm, hours, minutes ) {
     var militaryHours;
-    if( ampm == "AM" ) {
+    if( ampm == "am" ||ampm == "AM"  ) {
       militaryHours = hours;
       // check for special case: midnight
       if( militaryHours == "12" ) { militaryHours = "00"; }
     } else {
-      if( ampm == "PM" || am == "p.m." ) {
+      if( ampm == "PM" || ampm == "p.m." || ampm == "pm") {
         // get the interger value of hours, then add
         tempHours = parseInt( hours ) + 2;
         // adding the numbers as strings converts to strings
@@ -78,7 +103,7 @@ Alarm.prototype.toStringTime = function () {
 // substract time to get suggested sleep times
 //
 
-function UserWakeTime (alarm) {
+function WakeTime (alarm) {
 
   alarm.calculateTimes = function () {
     console.log("time: " + alarm.time);
@@ -87,32 +112,87 @@ function UserWakeTime (alarm) {
       var amount = alarm.amounts[i];
       ctime.setHours ( alarm.time.getHours() - amount['hours'] );
       ctime.setMinutes ( alarm.time.getMinutes() - amount['minutes']);
-      alarm.calcTimes.push([ctime, amount]);
+
+      var hour = ctime.getHours() % 12;
+      if ( hour == 0 ) hour = 12;
+      var minute = (ctime.getMinutes()<10?'0':'') +  ctime.getMinutes();
+      var meridian = 'AM';
+      if (ctime.getHours() > 12 ) 
+        meridian = 'PM';
+
+      var ctime_12h = {
+        time: hour + ":" + minute + " " + meridian,
+        hour: hour,
+        min: minute,
+        ampm: meridian,
+        amount: amount['label']
+      };
+
+      alarm.calcTimes.push([ctime, amount, ctime_12h]);
       console.log("wt.calculated: " + ctime.toTimeString());
+      console.log('kkk' +ctime_12h['amount']);
     }
   }
 
   alarm.getTimesInHTML = function () {
-    var header = "<h3 style='color:#f8512f;'>If you wake up at " + alarm.toStringTime() + "</h3>";
-    header += "<h4 style='color:#f8512f;'>then you should fall asleep at one of the following times:</h4>";
+    var header = "<span style='color:#5b5f68;'>your recommended bedtimes: </span>"; 
     var body = '';
     var times = alarm.calcTimes;
-    for ( var i in times ) { body += _radioTag ( i, times[i][0], times[i][1]['label']); } 
+    for ( var i in times ) { body += _radioTag ( i, times[i][0], times[i][1]['label']); }  //update
     return header+body;
   }
 
+  /* the div that the timeline resides in */
+  alarm.setTimeline = function () {
+    // change back to green if it's blue 
+    $("#y0").attr("style", "color: #681;"); 
+    var timeItem = $(".timelist-div ol li");
+    var times = alarm.calcTimes;
+    if (alarm.calcTimes.length == 0) return "no calculated times";
+    var order = ["#y2","#y1","#y0"];
+    for ( var i in order) {
+      var hour =  times[i][2]['hour'];
+      var minute = times[i][2]['min'];
+      var meridian =  times[i][2]['ampm'];
+      $(order[i]).html(' <input type="radio" name="time" hour='+hour+' minute=' + minute + ' ampm=' + meridian +' ><label>' +times[i][2]["time"] + '</label>'+  "<span class='details'>" + times[i][2]['amount'] +"</span>");
+    }
+    /* a very 'brute-force' way. this could be fixed, but later... */
+    $("#y3").html(alarm.toStringTime() +" <span class='details'>wakeup time</span>");
+    $("#y3").attr("style", "color: #28e;");   
+  }
+  $(".timelist-recommend").html("<p class='lead'>Recommended bedtimes: ");
+  $(".timelist-footer").html("Select a time to set a bedtime reminder call or text. ");
+  $(".reminder2").hide();
+  $(".reminder1").show();
 }
 
-function UserSleepTime (alarm) {
+function SleepTime (alarm) {
   alarm.calculateTimes = function () {
     for( var i in alarm.amounts )  {
       console.log("time before:  " + alarm.time);
       var ctime = new Date();
       var amount = alarm.amounts[i];
       ctime.setHours ( alarm.time.getHours() + amount['hours']);
-      ctime.setMinutes ( alarm.time.getMinutes() + amount['minutes'] );
-      alarm.calcTimes.push([ctime, amount]);
-      console.log("st.calculated:  " + ctime.toTimeString());
+      ctime.setMinutes ( alarm.time.getMinutes() + amount['minutes'] ); 
+
+      var hour = ctime.getHours() % 12;
+      if ( hour == 0 ) hour = 12;
+      var minute = (ctime.getMinutes()<10?'0':'') +  ctime.getMinutes();
+      var meridian = 'AM';
+      if (ctime.getHours() > 12 ) 
+        meridian = 'PM';
+
+      var ctime_12h = {
+        time: hour + ":" + minute + " " + meridian,
+        hour: hour,
+        min: minute,
+        ampm: meridian,
+        amount: amount['label']
+      };
+
+      alarm.calcTimes.push([ctime, amount, ctime_12h]);
+      console.log("wt.calculated: " + ctime.toTimeString());
+      console.log('kkk' +ctime_12h['amount']);
     }
   }
 
@@ -125,6 +205,35 @@ function UserSleepTime (alarm) {
     for ( var i in times ) { body += _radioTag ( i, times[i][0], times[i][1]['label']); } 
     return header+body;
   }
+
+  /* the div that the timeline resides in */
+  alarm.setTimeline = function () {
+    // change back to green if it's blue 
+    $("#y3").attr("style", "color: #681;"); 
+    var times = alarm.calcTimes;
+    if (alarm.calcTimes.length == 0) return "no calculated times";
+    var order = ["#y1","#y2","#y3"];
+
+    for ( var i in order) {
+      var hour =  times[i][2]['hour'];
+      var minute = times[i][2]['min'];
+      var meridian =  times[i][2]['ampm'];
+      $(order[i]).html(' <input type="radio" name="time" hour='+hour+' minute=' + minute + ' ampm=' + meridian +' ><label>' +times[i][2]["time"] + '</label>'+  "<span class='details'>" + times[i][2]['amount'] +"</span>");
+    }
+    /* a very 'brute-force' way. this could be fixed, but later... */
+    $("#y0").html(alarm.toStringTime() +" <span class='details'>bedtime</span>");
+    $("#y0").attr("style", "color: #28e;");   
+  }
+
+
+  $(".timelist-recommend").html("<p class='lead'>Recommended wake-up times: </p>");
+  $(".timelist-footer").html("<p style='font-size:small;'>Select a time to set a wake-up call or text for the morning.</p>");
+  $(".main_reminder_container").html("Set a bedtime reminder:");
+
+ $(".reminder1").hide();
+  $(".reminder2").show();
+
+
 }
 
 
@@ -133,18 +242,24 @@ function _radioTag (id, dateObj, label) {
   if ( hour == 0 ) hour = 12;
   var minute = (dateObj.getMinutes()<10?'0':'') +  dateObj.getMinutes();
   var meridian = 'AM';
-  if (dateObj.getHours() > 12 ) {
+  if (dateObj.getHours() > 12 ) 
     meridian = 'PM';
-  }
-  var label = hour + ':' + minute + ' ' + meridian +' (' + label + ')';
+
+  var label = hour + ":" + minute + " " + meridian +" (" + label + ")";
   return "<div class='radio'> <label> <input type='radio' name='radioReminder' id="+id+" hour="+hour+" minute=" + minute + " ampm=" + meridian + "  onchange='showSaveBtn()'>"+label+" </label> </div> ";
 }
 
 
-      function _hourEnd () { return  hour;}
-      function _minuteEnd () {return  min;}
+function _hourEnd () { return  hour;}
+function _minuteEnd () {return  min;}
 
-      function _hourStart () { return $('input[name=radioReminder]:checked').attr("hour"); }
-      function _minuteStart () { return $('input[name=radioReminder]:checked').attr("minute");}
-      function _ampmStart () { return $('input[name=radioReminder]:checked').attr("ampm");}
+function _hourStart () { return $('input[name=time]:checked').attr("hour"); }
+function _minuteStart () { return $('input[name=time]:checked').attr("minute");}
+function _ampmStart () { return $('input[name=time]:checked').attr("ampm");}
+
+
+
+/*-----------------------------------------------------------------------------*/
+/* new alarms page */
+
 

@@ -9,7 +9,7 @@ skip_before_filter  :verify_authenticity_token
   def new
     @alarms = current_user.alarms.all
     @alarm = current_user.alarms.new
-              render :layout => 'blank'
+             
 
   end
  

@@ -24,7 +24,7 @@ skip_before_filter  :verify_authenticity_token
 
   def edit
       @alarm = Alarm.find(params[:id])
-          render :layout => 'blank'
+         
 
      # if @alarm.user_id != current_user.id
      #   render :file => File.join(Rails.root, 'public', '500.html')

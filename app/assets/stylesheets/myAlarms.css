@@ -265,3 +265,7 @@ margin:auto 0;
 
 }
 
+body > div.container.main_content > div > div.page-header.col-xs-12 > div > a{
+color:white;
+}
+

@@ -4,8 +4,6 @@ $(document).ready(function() {
 
 		var url = $(this).data('url');
 
-
-
 		if ($(this).is(":checked"))
         {
            console.log("ON " + this.id);
@@ -42,21 +40,7 @@ $(document).ready(function() {
 			});
         }
 
-
-
-
-
-
-
-
-
 	});
-
-
-
-
-
-
 
 });
 

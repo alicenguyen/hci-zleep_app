@@ -1,95 +1,250 @@
+<script type="text/javascript">
+  
+  $( document ).ready(function() {
+    $('#signup_message').show();
+    $('#login_message').hide();
 
-<div class ="row">
-  <div class="col-md-2"></div>
+});
 
-  <div class="col-md-4 center">
-    <div class="jumbotron less_pad">
-      <%if @alarms.first.present?%>
-        <h3>Last set Alarm at: <span
-            style="color:#428bca;"><%= @alarms.first.wakeup_hour %> : <%= @alarms.first.wakeup_minute %> <%= @alarms.first.wakeup_ampm %></span>.</h4>
 
-      <%else %>
-        <h2>You have no alarm.</h2>
+  $(function() {
+      $("#signup_button").click( function()
+           {
 
-      <% end %>
-        <h4> Click below to create an alarm </h3>
-        <a href="/alarms/" class="btn btn-danger"> Create Alarm Now !</a>
-    </div>
-	<h4> The current time is: </h4>
-      <div id="clock" class="light">
-        <div class="display">
-            <div class="weekdays"></div>
-            <div class="ampm"></div>
-            <div class="alarm"></div>
-            <div class="digits"></div>
+              $('#login').html('<%= escape_javascript(render "devise/registrations/new") %>');
+              $('#signup_message').hide();
+              $('#login_message').show();
+
+
+
+           }
+      );
+
+      $("#login_button").click( function()
+     {
+
+        $('#login').html('<%= escape_javascript(render "devise/sessions/new") %>');
+        $('#signup_message').show();
+        $('#login_message').hide();
+
+     }
+      );
+});
+
+</script>
+
+
+<div id="canvasesdiv" style="position:relative;"> 
+  <canvas id="canvas-layer1" style="z-index:1;" class='c' style="position: absolute" height="250">animated rainbow wave</canvas>
+  <canvas id="canvas-layerText" class="wave-text canvas-layer" style="z-index:2;" width="1140" height="200"></canvas>
+</div>
+
+
+<div class="row">
+  <div class="col-md-6">
+     <br><br><br><br>
+    <div id="carousel-example-captions" class="carousel slide" data-ride="carousel">
+      <ol class="carousel-indicators">
+        <li data-target="#carousel-example-captions" data-slide-to="0" class="active"></li>
+        <li data-target="#carousel-example-captions" data-slide-to="1" class=""></li>
+        <li data-target="#carousel-example-captions" data-slide-to="2" class=""></li>
+        <li data-target="#carousel-example-captions" data-slide-to="3" class=""></li>
+        <li data-target="#carousel-example-captions" data-slide-to="4" class=""></li>
+        <li data-target="#carousel-example-captions" data-slide-to="5" class=""></li>
+      </ol>
+      <div class="carousel-inner">
+        <div class="item active">
+          <img data-src="holder.js/900x300/auto/#777:#777" alt="900x300" src="/assets/hittingsnooze.jpg">
+
+          <div class="carousel-caption carosel_text container">
+            <h5>Do you angrily hit "snooze" each morning?</h5>
+            <p>Zleep is here to help!</p>
+          </div>
         </div>
-      </div><br><br>
-    <div class="button-holder">
-        <a id="switch-theme" class="button">Switch Theme</a>
-        <a class="alarm-button"></a>
+        <div class="item">
+          <img data-src="holder.js/900x300/auto/#666:#666" alt="900x300" src="/assets/fallasleepmiddleofday.jpg">
+          <div class="carousel-caption carosel_text container">
+            <h5>Feeling sluggish all day?</h5>
+            <p>Try setting your alarm with Zleep's calculator feature!</p>
+          </div>
+        </div>
+        <div class="item">
+          <img data-src="holder.js/900x300/auto/#555:#5555" alt="900x300" src="/assets/sleepingduringmeetings.jpg">
+          <div class="carousel-caption carosel_text container">
+            <h5>Can't stay awake during that important meeting?</h5>
+            <p>We will get you the right number of REM cycles each night!</p>
+          </div>
+        </div>
+        <div class="item">
+          <img data-src="holder.js/900x300/auto/#555:#5555" alt="900x300" src="/assets/asleeponwall.jpg">
+          <div class="carousel-caption carosel_text container">
+            <h5>Are you a zombie without your mid-day nap?</h5>
+            <p>Wake up and try our App!!!</p>
+          </div>
+        </div>
+        <div class="item">
+          <img data-src="holder.js/900x300/auto/#555:#5555" alt="900x300" src="/assets/coffeemaker.jpg">
+          <div class="carousel-caption carosel_text container">
+            <h5>Fatigue, lethargy, and irritability got you down?</h5>
+            <p>Try falling asleep with the Zleep music timer!</p>
+          </div>
+        </div>
+        <div class="item">
+          <img data-src="holder.js/900x300/auto/#555:#5555" alt="900x300" src="/assets/asleepatdesk.jpg">
+          <div class="carousel-caption carosel_text container">
+            <h5>Let Zleep! put you in control...</h5>
+            <p>Scroll down and sign up below!</p>
+          </div>
+        </div>
+      </div>
+      <a class="left carousel-control" href="#carousel-example-captions" data-slide="prev">
+        <span class="glyphicon glyphicon-chevron-left"></span>
+      </a>
+      <a class="right carousel-control" href="#carousel-example-captions" data-slide="next">
+        <span class="glyphicon glyphicon-chevron-right"></span>
+      </a>
     </div>
+   
+
+
+
+
   </div>
-  
-  <div class="col-md-4">
-    <div class="jumbotron less_pad">
-      <h3>"Zleep-science"</b> will help you set your alarm <i>right</i> and offers <i>relaxing</i> music to help you fall asleep.
-    Get started with the menu at the <b><i>top-right</i></b> of the screen!</p></h3><br>
+  <div class="col-md-1"></div>
+
+  <div class="col-md-5">
+    <div class="login_center" id="login">
+      <%= render "devise/sessions/new" %>
     </div>
+    <span id="signup_message">Don't have an account? <a href="#" id="signup_button"> Sign Up Now !</a></span>
+    <span id="login_message">Have an account ? <a href="#" id="login_button"> Log In Now! </a></span>
   </div>
-  
-  <div class="col-md-2"></div>
+
+
 
 </div>
 
 
 
-<div class="overlay">
 
-      <div id="alarm-dialog">
 
-        <h2>Set alarm for</h2>
 
-        <label class="hours">
-          Hours
-          <input type="number" value="0" min="0" />
-        </label>
 
-        <label class="minutes">
-          Minutes
-          <input type="number" value="0" min="0" />
-        </label>
 
-        <label class="seconds">
-          Seconds
-          <input type="number" value="0" min="0" />
-        </label>
 
-        <div class="button-holder">
-          <a id="alarm-set" class="button blue">Set</a>
-          <a id="alarm-clear" class="button red">Clear</a>
-        </div>
 
-        <a class="close"></a>
 
-      </div>
 
-    </div>
 
-    <div class="overlay">
 
-      <div id="time-is-up">
 
-        <h2>Time's up!</h2>
 
-        <div class="button-holder">
-          <a class="button blue">Close</a>
-        </div>
 
-      </div>
 
-    </div>
 
-    <audio id="alarm-ring" preload>
-      <source src="/assets/ticktac.mp3" type="audio/mpeg" />
-      <source src="/assets/ticktac.ogg" type="audio/ogg" />
-    </audio>
+
+
+<script type="text/javascript" charset="utf-8">
+  var c = document.querySelector('.c') /* canvas element */, 
+  w /* canvas width */, h /* canvas height */,
+  ctx = c.getContext('2d') /* canvas context */, 
+
+  /* previous & current coordinates */
+  x0, y0, x, y, 
+  t = 0, t_step = 1/20, 
+  tmp, 
+
+  /* just me being lazy */
+  exp = Math.exp, pow = Math.pow, sqrt = Math.sqrt, 
+  PI = Math.PI, sin = Math.sin, cos = Math.cos;
+
+var textLayer;
+var tctx;
+
+/* FUNCTIONS */
+/* a random number between min & max */
+var rand = function(max, min) {
+  var b = (max === 0 || max) ? max : 1, a = min || 0;
+
+  return a + (b - a)*Math.random();
+};
+
+var trimUnit = function(input_str, unit) {
+  return parseInt(input_str.split(unit)[0], 10);
+};
+
+var initCanvas = function() {
+  var s = getComputedStyle(c);
+
+  w = c.width = trimUnit(s.width, 'px');
+  h = c.height = trimUnit(s.height, 'px');
+
+  layerText = document.getElementById('canvas-layerText');
+  tctx = layerText.getContext("2d");
+};
+
+var wave = function() {
+  x0 = -1, y0 = h/2;
+
+  ctx.clearRect(0, 0, w, h);
+
+  tmp = pow(t, 1.75)/19; /* keep computation out of loop */
+  var msg = ['i', 'love', 'you'];
+
+  for(x = 0; x < w; x = x + 3) {
+    y =  9*sqrt(x)*sin(x/23/PI + t/3 + sin(x/29 + t)) + 
+      32*sin(t)*cos(x/19 + t/7) + 
+      16*cos(t)*sin(sqrt(x) + rand(3, 2)*tmp) + h/2;
+
+    ctx.beginPath();
+    ctx.moveTo(x0, y0);
+    ctx.lineTo(x, y);
+    ctx.lineWidth = 2;
+    ctx.strokeStyle = 'hsl(150, 75%, 38%)';
+    ctx.stroke();
+
+
+    x0 = x;
+    y0 = y;
+  }
+
+
+  t += t_step;
+
+  requestAnimationFrame(wave);
+};
+
+var text = function()  {
+
+
+
+  tctx.font = '26pt Helvetica, sans-serif';
+  for(var i in waveMsgs ) {
+   
+    setInterval(function () 
+        {
+          tctx.clearRect(0, 0, w, h);
+          tctx.fillText(waveMsgs[i], 50, 75); 
+        }, 2000);
+    if (i >= waveMsgs.length) i = 0; 
+  }
+
+
+
+};
+
+
+/* START THE MADNESS */
+setTimeout(function() {
+  initCanvas();
+  text(); 
+  wave();
+  /* fix looks on resize */
+  addEventListener('resize', initCanvas, false);
+}, 15);
+
+
+
+var waveMsgs = ["Feeling sluggish all day?", "Starting your day with that annoying alarm sound?", "Like waking up to those hotel courtesy calls?", "Jumpstart your sleep with zleep"];
+
+</script>

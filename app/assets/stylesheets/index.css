@@ -150,7 +150,6 @@ border-color: #ccc;
 /* carousel */
 .login_center {
 margin-top:75px;
-height: 500px;
 margin-bottom: 60px;
 }
 
@@ -179,8 +178,6 @@ font-weight:normal;
 }
 
 .btn-login {
-  background-color:#d9d9d9;
-  color:white;
   float:right;
 }
 

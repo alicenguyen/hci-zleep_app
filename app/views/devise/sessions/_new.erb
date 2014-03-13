@@ -1,10 +1,7 @@
+
+
 <%= devise_error_messages! %>
 
-<div id="canvasesdiv" style="position:relative;"> 
-  <canvas id="canvas-layer1" style="z-index:1;" class='c' style="position: absolute" height="250">animated rainbow wave</canvas>
-  <canvas id="canvas-layerText" class="wave-text canvas-layer" style="z-index:2;" width="1140" height="200"></canvas>
-</div>
-<div class="login_center">
 
   <!--
   <div id="carousel-example-captions" class="carousel slide" data-ride="carousel">
@@ -70,142 +67,42 @@
   </div>
   --> 
 
-  <div class = "login_section container" >
+
+
+
+
+
+
+
+  <div class = "login_section" >
     <div>
       <h2 class="login-label"> log in</h2>
       <%= content_tag(:div, flash[:error], :id => "flash_error") if flash[:error] %>
       <%= content_tag(:div, flash[:notice], :id => "flash_notice") if flash[:notice] %>
       <%= content_tag(:div, flash[:alert], :id => "flash_alert") if flash[:alert] %>
       <%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :role => "form") do |f| %>
-      </div>
-      <div class="form-group">
-        <%= f.email_field :email, :autofocus => true, :class => "form-control", :placeholder => "Enter email" %>
-      </div>
-      <div class="form-group">
-        <%= f.password_field :password, :class => "form-control", :placeholder => "Enter Password" %>
-      </div>
-      <div class="form-group remember_me_grp" style="margin-bottom:;">
-        <% if devise_mapping.rememberable? -%>
-          <div><%= f.check_box :remember_me %> <%= f.label :remember_me, :class => "remember_me_label"%></div>
-        <% end -%>
-      </div>
-      <div><%= f.submit "log in", :class => "btn btn-default btn-login"  %></div>
+    </div>
+    <div class="form-group">
+      <%= f.email_field :email, :autofocus => true, :class => "form-control", :placeholder => "Enter email" %>
+    </div>
+    <div class="form-group">
+      <%= f.password_field :password, :class => "form-control", :placeholder => "Enter Password" %>
+    </div>
+    <div class="form-group remember_me_grp" style="margin-bottom:;">
+      <% if devise_mapping.rememberable? -%>
+        <div><%= f.check_box :remember_me %> <%= f.label :remember_me, :class => "remember_me_label"%></div>
+      <% end -%>
+    </div>
+      <div><%= f.submit "log in", :class => "btn btn-primary btn-login"  %> </div>
 
     <% end %>
-
-    <br><br>
-    <hr>
-    <%= render "devise/shared/links" %>
+    
 
   </div>
-</div>
+
+
 
 
 
 <!-- Modal -->
 
-
-<script type="text/javascript" charset="utf-8">
-  var c = document.querySelector('.c') /* canvas element */, 
-  w /* canvas width */, h /* canvas height */,
-  ctx = c.getContext('2d') /* canvas context */, 
-
-  /* previous & current coordinates */
-  x0, y0, x, y, 
-  t = 0, t_step = 1/20, 
-  tmp, 
-
-  /* just me being lazy */
-  exp = Math.exp, pow = Math.pow, sqrt = Math.sqrt, 
-  PI = Math.PI, sin = Math.sin, cos = Math.cos;
-
-var textLayer;
-var tctx;
-
-/* FUNCTIONS */
-/* a random number between min & max */
-var rand = function(max, min) {
-  var b = (max === 0 || max) ? max : 1, a = min || 0;
-
-  return a + (b - a)*Math.random();
-};
-
-var trimUnit = function(input_str, unit) {
-  return parseInt(input_str.split(unit)[0], 10);
-};
-
-var initCanvas = function() {
-  var s = getComputedStyle(c);
-
-  w = c.width = trimUnit(s.width, 'px');
-  h = c.height = trimUnit(s.height, 'px');
-
-  layerText = document.getElementById('canvas-layerText');
-  tctx = layerText.getContext("2d");
-};
-
-var wave = function() {
-  x0 = -1, y0 = h/2;
-
-  ctx.clearRect(0, 0, w, h);
-
-  tmp = pow(t, 1.75)/19; /* keep computation out of loop */
-  var msg = ['i', 'love', 'you'];
-
-  for(x = 0; x < w; x = x + 3) {
-    y =  9*sqrt(x)*sin(x/23/PI + t/3 + sin(x/29 + t)) + 
-      32*sin(t)*cos(x/19 + t/7) + 
-      16*cos(t)*sin(sqrt(x) + rand(3, 2)*tmp) + h/2;
-
-    ctx.beginPath();
-    ctx.moveTo(x0, y0);
-    ctx.lineTo(x, y);
-    ctx.lineWidth = 2;
-    ctx.strokeStyle = 'hsl(150, 75%, 38%)';
-    ctx.stroke();
-
-
-    x0 = x;
-    y0 = y;
-  }
-
-
-  t += t_step;
-
-  requestAnimationFrame(wave);
-};
-
-var text = function()  {
-
-
-
-  tctx.font = '26pt Helvetica, sans-serif';
-  for(var i in waveMsgs ) {
-   
-    setInterval(function () 
-        {
-          tctx.clearRect(0, 0, w, h);
-          tctx.fillText(waveMsgs[i], 50, 75); 
-        }, 2000);
-    if (i >= waveMsgs.length) i = 0; 
-  }
-
-
-
-};
-
-
-/* START THE MADNESS */
-setTimeout(function() {
-  initCanvas();
-  text(); 
-  wave();
-  /* fix looks on resize */
-  addEventListener('resize', initCanvas, false);
-}, 15);
-
-
-
-var waveMsgs = ["Feeling sluggish all day?", "Starting your day with that annoying alarm sound?", "Like waking up to those hotel courtesy calls?", "Jumpstart your sleep with zleep"];
-
-</script>

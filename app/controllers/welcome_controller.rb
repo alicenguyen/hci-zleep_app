@@ -5,9 +5,16 @@ require 'twilio-ruby'
 class WelcomeController < ApplicationController
 	before_filter :authenticate_user!
 	skip_before_filter  :verify_authenticity_token
-	  def index
-	    @alarms = current_user.alarms.all
-		  end
+  	skip_before_filter :authenticate_user!, :only => [:index]
+
+
+  	def home
+    	@alarms = current_user.alarms.all
+
+  	end
+
+  	def index
+    end
 
     def demo 
  	  	@users = User.where("Users.phone_number IS NOT NULL")

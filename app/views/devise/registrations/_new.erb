@@ -1,0 +1,40 @@
+
+
+
+  <div class = "login_section" >
+    <div>
+      <h2 class="login-label"> Sign Up</h2>
+      <%= content_tag(:div, flash[:error], :id => "flash_error") if flash[:error] %>
+      <%= content_tag(:div, flash[:notice], :id => "flash_notice") if flash[:notice] %>
+      <%= content_tag(:div, flash[:alert], :id => "flash_alert") if flash[:alert] %>
+      <%= form_for(resource, :as => resource_name, :url => registration_path(resource_name), :role => "form") do |f| %>
+      <%= devise_error_messages! %>
+        <div class="form-group"><%= f.label :first_name, "First Name" %><br />
+          <%= f.text_field :first_name ,  :class => "form-control"%>
+        </div>
+        <div class="form-group"><%= f.label :last_name, "Last Name" %><br />
+          <%= f.text_field :last_name,  :class => "form-control" %>
+        </div>
+
+        <div class="form-group"><%= f.label :email, "Email Address" %><br />
+          <%= f.email_field :email, :autofocus => true, :class => "form-control" %>
+        </div>
+
+        <div class="form-group"><%= f.label :phone_number, "Phone # (We call this number to wake you up!)" %><br />
+          <%= f.text_field :phone_number,  :class => "form-control" %>
+        </div>
+        <div class="form-group"><%= f.label :password, "Password (> 7 characters)" %><br />
+          <%= f.password_field :password, :class => "form-control"%>
+        </div>
+
+        <div class="form-group"><%= f.label :password_confirmation, "Password Confirmation" %><br />
+          <%= f.password_field :password_confirmation, :class => "form-control"%></div>
+      </div>
+      <div><%= f.submit "Sign up", :class => "btn btn-primary btn-login" %></div>
+
+      <% end %>
+      
+
+
+  </div>
+

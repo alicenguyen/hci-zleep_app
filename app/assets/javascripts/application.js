@@ -23,3 +23,4 @@
 //= require myalarms
 //= require moment
 //= require clock
+//= require alarms

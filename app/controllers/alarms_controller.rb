@@ -3,7 +3,7 @@ before_filter :authenticate_user!
 skip_before_filter  :verify_authenticity_token
 
   def index
-    @alarms = current_user.alarms.all
+    @alarms = current_user.alarms.order('alarms.created_at DESC')
   end
 
   def new
@@ -58,6 +58,21 @@ skip_before_filter  :verify_authenticity_token
 
   def sleep
     render :layout => 'goodnight'
+  end
+
+  def toggle
+    puts (" PARAMS : #{params}")
+    current_state = params[:current_state]
+
+    @alarm = Alarm.find(params[:id])
+    if (current_state == "off") #turn off
+      @alarm.is_dismiss = "off"
+    else #turn on
+      @alarm.is_dismiss = "on"
+    end 
+    @alarm.save!
+
+    render :json => @alarm
   end
 
 

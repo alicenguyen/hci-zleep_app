@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140227205801) do
+ActiveRecord::Schema.define(version: 20140313050603) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,7 +24,7 @@ ActiveRecord::Schema.define(version: 20140227205801) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "sleeping_minute"
-    t.string   "is_dismiss"
+    t.string   "is_dismiss",               default: "on"
     t.string   "sleep_reminder_time"
     t.string   "sleep_reminder_type"
     t.string   "sleeping_ampm"

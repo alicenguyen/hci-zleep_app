@@ -32,7 +32,16 @@ Zleep::Application.routes.draw do
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
   resources :users
-  resources :alarms
+  
+  resources :alarms do
+    collection do 
+      get :sleep
+    end
+
+    member do
+      put :toggle
+    end
+  end
   resources :reminders
   resources :days
   # Example of named route that can be invoked with purchase_url(id: product.id)

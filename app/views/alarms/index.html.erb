@@ -37,6 +37,7 @@
                       <% end %>
                     </div>
                   </div>
+
                 </div>
                 <div class="row">
                   <div class="col-xs-12">
@@ -46,6 +47,18 @@
                         <div class="onoffswitch-inner"></div>
                         <div class="onoffswitch-switch"></div>
                       </label>
+
+                  <div class="row">
+                    <div class="col-xs-12">
+                      <div class="onoffswitch">
+                        <%= check_box_tag "onoffswitch",  "on" , alarm.is_dismiss == "on", :class => "onoffswitch-checkbox", :id => "myonoffswitch#{alarm.id}", "data-url" => toggle_alarm_path(alarm) %>
+                        
+                        <label class="onoffswitch-label" for="myonoffswitch<%= alarm.id %>">
+                            <div class="onoffswitch-inner"></div>
+                            <div class="onoffswitch-switch"></div>
+                        </label>
+                      </div>
+
                     </div>
                   </div>
                 </div>

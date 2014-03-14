@@ -159,7 +159,7 @@ background-color:none;
 }
 
 .navbar{
-  height:20px;
+  min-height:20px;
   
 }
 

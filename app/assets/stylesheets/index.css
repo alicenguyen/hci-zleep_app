@@ -5,6 +5,12 @@ body
   color:#5b5f68;
 }
 
+.carousel-caption
+{
+    background-color:#000000;
+    opacity:0.8;
+    filter:alpha(opacity=80); /* For IE8 and earlier */
+}
 
 #goTop{
   padding:5px;

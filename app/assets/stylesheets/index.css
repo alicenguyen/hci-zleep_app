@@ -220,4 +220,6 @@ top:0px;
     right:0px;
 }
 
-
+body > div.container.main_content > div.row > div.col-md-4.center > div.jumbotron.less_pad > a {
+color: white;
+}

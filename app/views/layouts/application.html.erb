@@ -45,11 +45,11 @@ ga('send', 'pageview');
 
               <li class="nav-item dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown"><span class=" glyphicon glyphicon-time"> 
-                </span>&nbsp;&nbsp;times <b class="caret"></b></a>
+                </span>&nbsp;&nbsp;sleep times <b class="caret"></b></a>
                 <ul class="dropdown-menu">
                   <li class="nav-item <%= 'active' if current_page?(new_alarm_path) %>"><a href="/alarms/new"><span class=" glyphicon
-                        glyphicon-time"></span>&nbsp;&nbsp;calculator</a></li>
-                  <li class="nav-item <%= 'active' if current_page?(alarms_path) %>"><a href="/alarms/"><%= image_tag("othercircles_alarm.png") %>&nbsp;&nbsp;alarms</a></li>
+                        glyphicon-time"></span>&nbsp;&nbsp;sleep calculator</a></li>
+                  <li class="nav-item <%= 'active' if current_page?(alarms_path) %>"><a href="/alarms/"><%= image_tag("othercircles_alarm.png") %>&nbsp;&nbsp;my alarms</a></li>
                 </ul>
               </li>
               <li class="nav-item <%= 'active' if current_page?(musics_index_path) %>"><a href="/musics/index"><span class="glyphicon

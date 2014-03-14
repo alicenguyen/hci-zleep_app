@@ -154,7 +154,7 @@ function WakeTime (alarm) {
       var hour =  times[i][2]['hour'];
       var minute = times[i][2]['min'];
       var meridian =  times[i][2]['ampm'];
-      $(order[i]).html(' <input type="radio" name="time" hour='+hour+' minute=' + minute + ' ampm=' + meridian +' ><label>' +times[i][2]["time"] + '</label>'+  "<span class='details'>" + times[i][2]['amount'] +"</span>");
+      $(order[i]).html(' <label><input type="radio" name="time" hour='+hour+' minute=' + minute + ' ampm=' + meridian +' >' +times[i][2]["time"] + '</label>'+  "<span class='details'>" + times[i][2]['amount'] +"</span>");
     }
     /* a very 'brute-force' way. this could be fixed, but later... */
     $("#y3").html(alarm.toStringTime() +" <span class='details'>wakeup time</span>");
@@ -218,7 +218,7 @@ function SleepTime (alarm) {
       var hour =  times[i][2]['hour'];
       var minute = times[i][2]['min'];
       var meridian =  times[i][2]['ampm'];
-      $(order[i]).html(' <input type="radio" name="time" hour='+hour+' minute=' + minute + ' ampm=' + meridian +' ><label>' +times[i][2]["time"] + '</label>'+  "<span class='details'>" + times[i][2]['amount'] +"</span>");
+      $(order[i]).html(' <label><input type="radio" name="time" hour='+hour+' minute=' + minute + ' ampm=' + meridian +' >' +times[i][2]["time"] + '</label>'+  "<span class='details'>" + times[i][2]['amount'] +"</span>");
     }
     /* a very 'brute-force' way. this could be fixed, but later... */
     $("#y0").html(alarm.toStringTime() +" <span class='details'>bedtime</span>");

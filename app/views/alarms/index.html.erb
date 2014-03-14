@@ -14,37 +14,37 @@
           <div class="row alarm_box">
 
             <div class="description col-xs-9">
-              <div class = "col-xs-6">
-                <div class = "col-xs-12">
-                  <span class="time_label">sleep: </span>
-                  <span class="time sleep"><%= alarm.sleeping_hour %>:<%= alarm.sleeping_minute %>&nbsp;<%= alarm.sleeping_ampm %> </span>
-                  <br>
-                  <span class="sleep_reminder" style="font-size:8pt;">reminder: <%= alarm.sleep_reminder_time%> min. before</span>
-                </div>
-                <div class="col-xs-12">
+
+              <div class = "col-xs-12 sleep_div alarm-box-time">
+                <div class="col-xs-1 alarm-icon">
                   <%  if alarm.sleep_reminder_type == 'call' %>
                     <span class="glyphicon glyphicon-earphone"></span>
                   <% else %>
                     <span class="glyphicon glyphicon-envelope"></span>
                   <% end %>
                 </div>
-              </div>
-              <br>
-              <div class = "col-xs-6" style="margin-top: -15px;">
-                <div class = "col-xs-12">
-                  <span class="time_label">wake: </span>
-                  <span class="time wake"><%= alarm.wakeup_hour %>:<%= alarm.wakeup_minute %>&nbsp;<%= alarm.wakeup_ampm %> </span>
+
+                <div class = "col-xs-10">
+                  <span class="time_label">sleep: </span>
+                  <span class="time sleep"><%= alarm.sleeping_hour %>:<%= alarm.sleeping_minute %>&nbsp;<%= alarm.sleeping_ampm %> </span>
                   <br>
-                </div>
-                <div class="col-xs-12">
+                  <span class="sleep_reminder" style="font-size:8pt;">reminder: <%= alarm.sleep_reminder_time%> min. before</span>
+                </div> 
+              </div>
+               
+              <div class = "col-xs-12 wake_div alarm-box-time">
+                <div class="col-xs-1 alarm-icon">
                   <%  if alarm.wakeup_reminder_type == 'call' %>
                     <span class="glyphicon glyphicon-earphone"></span>
                   <% else %>
                     <span class="glyphicon glyphicon-envelope"></span>
                   <% end %>
                 </div>
-              </div>
-              <br>
+              <div class = "col-xs-10">
+                <span class="time_label">wake: </span>
+                <span class="time wake"><%= alarm.wakeup_hour %>:<%= alarm.wakeup_minute %>&nbsp;<%= alarm.wakeup_ampm %> </span>
+                           </div>
+            </div> 
             </div>
             <div class="col-xs-2">
               <div class="onoffswitch">
@@ -71,5 +71,8 @@
     </div>
   </div>
 </div>
+
+
+
 
 

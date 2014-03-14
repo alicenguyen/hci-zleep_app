@@ -27,11 +27,10 @@
 
       <!-- toggle reminders to swap then reveal content-->
       <div class="reminder1 remind" hidden>
-        alarm type: <%= f.select(:wakeup_reminder_type, ['call', 'sms', 'none'])%>
+        alarm type: <%= f.select(:wakeup_reminder_type, ['call', 'sms'])%>
     </div>
     <div class="reminder2 remind" hidden>
-      alarm type: <%=  f.select(:sleep_reminder_type, ['call', 'sms', 'none'])%> &nbsp;&nbsp; <br>
-      before: <%= f.select( :sleep_reminder_time, options_for_select((0..60).step(5))) %><%= f.select(:sleep_reminder_time_unit, ['minutes', 'hours'])%>&nbsp; 
+      Remind me <%= f.select( :sleep_reminder_time, options_for_select((0..60).step(5))) %> minutes before my bedtime by a <%=  f.select(:sleep_reminder_type, ['call', 'sms'])%> &nbsp;&nbsp;<br>
     </div>
 
 
@@ -53,11 +52,9 @@
 
   <!-- only display when users give sleeptime -->
   <div class="col-xs-12 timelist-footer" hidden>
-    <div class="reminder1 remind" hidden>
-      alarm type: <%=  f.select(:sleep_reminder_type, ['call', 'sms', 'none'])%> &nbsp;&nbsp;<br>
-      before:     <%= f.select( :sleep_reminder_time, options_for_select((0..60).step(5))) %> minutes&nbsp; 
-    </div>
-  </div>
+    <div class="reminder1 remind" hidden> 
+      Remind me <%= f.select( :sleep_reminder_time, options_for_select((0..60).step(5))) %> minutes before my bedtime by a <%=  f.select(:sleep_reminder_type, ['call', 'sms'])%> &nbsp;&nbsp;<br>
+    </div> </div>
   <div class="col-xs-12 timelist-footer" hidden>  
     repeat every: <br> 
     <div id="checkbox-list-days">

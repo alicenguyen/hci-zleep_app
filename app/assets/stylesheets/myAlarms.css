@@ -1,3 +1,4 @@
+iJw;
 
 
 .day_active
@@ -7,7 +8,7 @@
 }
 
 .day_non_active {
-color:  #999;
+  color:  #999;
 }
 
 .alarm_control_padding
@@ -50,24 +51,24 @@ color:  #999;
 
 
 .reminder-method .reminder-sleep .time {
-color:#5cb85c;
+  color:#5cb85c;
 }
 
 .form-control.method {
-    max-width:200px;
+  max-width:200px;
 }
 .form-conrol button {
-float:left;
+  float:left;
 }
 
 /*myAlarms page*/
 .myAlarms-top {
-    position:relative;
+  position:relative;
 }
 .myAlarms-body {
-/*    max-width: 750px;*/
-       margin-top:25px;
-       display: inline-flex;
+  /*    max-width: 750px;*/
+  margin-top:25px;
+  display: inline-flex;
 }
 
 
@@ -90,7 +91,7 @@ float:left;
 
 
 .form-control.alarmType.select{
- width:95px;
+  width:95px;
 
 }
 .form-control.am-pm.select{
@@ -98,35 +99,35 @@ float:left;
 }
 
 .create-new-alarm {
-    position:absolute;
-    bottom:10;
-    right:0;
+  position:absolute;
+  bottom:10;
+  right:0;
 }
 .alarm-item-days {
-padding-top:5px;
-color: #999;
+  padding-top:5px;
+  color: #999;
 }
 
 /* text color */
 .list-group-item-heading.alarm-item-time.wakeup{
-    color: #d9534f;
+  color: #d9534f;
 }
 
 .alarm-item-time.wake{
-    color: #5cb85c;
+  color: #5cb85c;
 }
 
 .day-active {
-    color: #428bca;
-    font-weight: bold;
+  color: #428bca;
+  font-weight: bold;
 
 }
 
 .list-group-item.alarm-item {
   margin:0 auto;
-   width: 400px;
-   height:125px;
-    padding:10px 0px 10px 10px;
+  width: 400px;
+  height:125px;
+  padding:10px 0px 10px 10px;
 }
 .list-group-item.alarm-item.new{
   max-width:280px;
@@ -136,11 +137,11 @@ color: #999;
 }
 
 #time {
-    width:70px;
+  width:70px;
 }
 
 .row.myAlarms-top {
-height: 50px;
+  height: 50px;
 }
 
 .myAlarm.form.inner.element {
@@ -150,8 +151,8 @@ height: 50px;
 }
 
 .container.myAlarms {
-max-width: 2000px;
-min-width: 410px;
+  max-width: 2000px;
+  min-width: 410px;
 }
 
 .title {
@@ -169,7 +170,7 @@ min-width: 410px;
   color: #d9534f;
   font-size:18px;
   line-height: 24px;
-  
+
 }
 
 #col-repeat-input {
@@ -177,7 +178,7 @@ min-width: 410px;
 }
 
 .modal-body {
-min-height: 200px;
+  min-height: 200px;
 }
 
 
@@ -197,79 +198,96 @@ min-height: 200px;
 
 
 #btn-create-new {
-    background-color: #DD7064;
-    color: #FFFFFF; 
-    display:inline-block;
-    width: 388px;
-    border-color: #DD7064;
+  background-color: #DD7064;
+  color: #FFFFFF; 
+  display:inline-block;
+  width: 388px;
+  border-color: #DD7064;
 }
 .div-create-new-btn{
   width: 100px;
   text-align: center;
   margin-bottom: -20px;
 
-   }
-
-.btn-discard {
-font-size:12pt;
-float:right;
 }
 
-#alarm_title {
+.btn-discard {
+  font-size:12pt;
+  float:right;
+}
+
+.alarm_title {
   margin-top:15px;
+  font-family: 'Roboto', sans-serif;
+  font-weight:300;
+  color:#1b6c97;
+  font-size: 18pt;
 }
 
 .reminder img {
-height:20px;
-width:20px;
+  height:20px;
+  width:20px;
 }
 
 a.list-group-item:hover{
-text-decoration: none;
-background-color: inherit;
+  text-decoration: none;
+  background-color: inherit;
 }
 
 
 body > div.container.main {
-margin: auto 0;
+  margin: auto 0;
 }
 
 .modal-footer {
-color:white;
-margin-top:0;
+  color:white;
+  margin-top:0;
 }
 
 .page-header {
-font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
-font-size:30pt;
-position:relative;
+  font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
+  font-size:30pt;
+  position:relative;
 }
 
 .headerTitle {
 
-font-family: inherit;
-font-weight: 500;
-line-height: 1.1;
-margin-top: 20px;
+  font-family: inherit;
+  font-weight: 500;
+  line-height: 1.1;
+  margin-top: 20px;
   font-family: 'Roboto', sans-serif;
   font-weight:300;
-    color:#5b5f68;
+  color:#5b5f68;
 
 }
 
 
 
 div.create-alarm-panel {
-height: 500px;
-border-radius: 5px;
-border: 1px solid;
-border-color: #ccc;
-padding:0;
-margin:auto 0;
+  height: 500px;
+  border-radius: 5px;
+  border: 1px solid;
+  border-color: #ccc;
+  padding:0;
+  margin:auto 0;
 
 }
 
 body > div.container.main_content > div > div.page-header.col-xs-12 > div > a{
-color:white;
+  color:white;
 }
 
+
+.wake_div {
+  margin-bottom: 20px;
+  margin-top:5px;
+  margin-left: -15px;
+}
+
+.sleep_div {
+    margin-bottom: 10px;
+  margin-top:15px;
+  margin-left: -15px;
+
+}
